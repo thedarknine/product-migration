@@ -65,3 +65,7 @@ def end_info(start_date):
     # Temps d'exécution total
     diff = end_date - start_date
     print(colors('yellow') + " ==> Temps d'exécution total : " + str(timedelta(seconds=diff.seconds)) + "\n\n")
+
+# DEINIT COLORAMA -----------------------------------------------------------------------------------
+def deinit():
+    colorama.deinit()
