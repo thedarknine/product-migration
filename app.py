@@ -2,7 +2,7 @@ import os
 import sys
 from datetime import datetime
 from dotenv import load_dotenv
-from utilities import display, logs, openproject
+from utilities import display, logs, openproject, plane
 
 display.clear_screen()
 
@@ -23,7 +23,9 @@ if __name__ == '__main__':
     while answer:
         print("""
         1. List of projects in OpenProject
-        2. Exit/Quit
+        2. List of projects in Plane
+        3. List of users in Plane
+        4. Exit/Quit
         """)
         answer=input("What would you like to do? ")
 
@@ -31,6 +33,12 @@ if __name__ == '__main__':
             print("\nList of projects in OpenProject")
             display.list(openproject.get_projects())
         elif answer=="2":
+            print("\nList of projects in Plane")
+            display.list(plane.get_projects())
+        elif answer=="3":
+            print("\nList of users in Plane")
+            display.list(plane.get_users())
+        elif answer=="4":
             print("\n Goodbye") 
             answer = None
         else:
