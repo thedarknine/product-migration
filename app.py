@@ -1,2 +1,6 @@
+from utilities import display
+
+display.clear_screen()
+
 if __name__ == '__main__':
-    print('Hello World')
+    display.alert('Hello World')
