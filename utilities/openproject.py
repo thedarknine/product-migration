@@ -21,3 +21,17 @@ def get_projects():
         logging.error(f"An error occurred: {e}")
         print(f"An error occurred: {e}")
         return None
+    
+def get_users():
+    try:
+        logging.info(f"Attempting to get users from Plane")
+        user_emails_list = []
+        users_list = api.get_all(openproject_url, os.getenv("OPENPROJECT_PATH_USERS"), openproject_headers)
+        if users_list:
+            for user in users_list["_embedded"]["elements"]:
+                user_emails_list.append(user["email"]) if user["email"] not in user_emails_list else user_emails_list
+        return user_emails_list
+    except requests.exceptions.RequestException as e:
+        logging.error(f"An error occurred: {e}")
+        print(f"An error occurred: {e}")
+        return None
