@@ -2,13 +2,16 @@ import logging
 import os
 import requests
 from utilities import api
+from dotenv import load_dotenv
 
 plane_url = os.getenv("PLANE_URL")
 plane_headers = {
     'X-API-Key': os.getenv("PLANE_API_KEY")
 }
+load_dotenv(dotenv_path=".env", verbose=True, override=True)
 
 def get_projects():
+    print(plane_url)
     try:
         logging.info(f"Attempting to get users from Plane")
         project_names_list = []

@@ -39,6 +39,24 @@ def get_types():
         logging.error(f"An error occurred: {e}")
         print(f"An error occurred: {e}")
         return None
+    
+def get_tasks():
+    try:
+        logging.info(f"Attempting to get tasks from OpenProject")
+        task_items_list = []
+        projects_list = api.get_all(openproject_url, os.getenv("OPENPROJECT_PATH_PROJECTS"), openproject_headers)
+        if projects_list:
+            for project in projects_list["_embedded"]["elements"]:
+                if project["name"] not in exclude_projects:
+                    tasks_list = api.get_all(openproject_url, str.replace(os.getenv("OPENPROJECT_PATH_TASKS"), "{PROJECT_ID}", str(project["id"])), openproject_headers)
+                    if tasks_list:
+                        for task in tasks_list["_embedded"]["elements"]:
+                            task_items_list.insert(task["id"], task["subject"])
+        return task_items_list
+    except requests.exceptions.RequestException as e:
+        logging.error(f"An error occurred: {e}")
+        print(f"An error occurred: {e}")
+        return None
 
 def get_users():
     try:
