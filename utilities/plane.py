@@ -22,6 +22,23 @@ def get_projects():
         print(f"An error occurred: {e}")
         return None
 
+def get_types():
+    try:
+        logging.info(f"Attempting to get issue types from Plane")
+        type_names_list = []
+        projects_list = api.get_all(plane_url, os.getenv("PLANE_PATH_PROJECTS"), plane_headers)
+        if projects_list:
+            for project in projects_list["results"]:
+                types_list = api.get_all(plane_url, str.replace(os.getenv("PLANE_PATH_TYPES"), "{PROJECT_ID}", project["id"]), plane_headers)
+                if types_list:
+                    for type in types_list["results"]:
+                        type_names_list.append(type["name"]) if type["name"] not in type_names_list else type_names_list
+        return type_names_list
+    except requests.exceptions.RequestException as e:
+        logging.error(f"An error occurred: {e}")
+        print(f"An error occurred: {e}")
+        return None
+
 def get_users():
     try:
         logging.info(f"Attempting to get users from Plane")

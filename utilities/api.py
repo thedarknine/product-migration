@@ -4,7 +4,7 @@ import urllib.parse
 
 def get_all(url, path, headers):
     try:
-        logging.info(f"Attempting to get list from: {url}")  # Debug line
+        logging.info(f"Attempting to get list from: {urllib.parse.urljoin(url, path)}")  # Debug line
         response = requests.get(urllib.parse.urljoin(url, path), headers=headers)
         response.raise_for_status()  # Raise an error for bad status codes
         return response.json()
