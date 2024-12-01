@@ -4,6 +4,17 @@ Migrate from OpenProject to Plane
 ## Install
 > make init
 
+## Poetry dependencies management
+
+Add a dependency
+> poetry add [package-name]
+
+Install dependencies
+> poetry install
+
+Run python script using poetry
+> poetry run python [script-name].py
+
 ## Modules to install
 --- 
 * colorama

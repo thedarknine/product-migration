@@ -7,19 +7,11 @@ SHELL := /bin/bash
 
 ## Run the application
 run:
-	python3 app.py
-
-## Initialize environment
-init: install shell
+	poetry run python app.py
 
 ## Install dependencies
 install:
-	python3 -m venv venv
-	pipenv install
-
-## Enter virtual environment
-shell:
-	pipenv shell
+	poetry install
 
 
 ## FORMATTER ==========================================================
