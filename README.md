@@ -6,8 +6,14 @@ Migrate from OpenProject to Plane
 
 ## Modules to install
 --- 
+* bullet
 * colorama
-* dotenv
+* python-dotenv
+* requests
+
+# A étudier
+https://docs.pydantic.dev/latest/
+https://hypercli.hyperoot.dev/
 
 # OpenProject API
 
@@ -19,3 +25,7 @@ Migrate from OpenProject to Plane
 
 * Documentation : https://developers.plane.so/api-reference/introduction
 * Into source code : https://github.com/makeplane/plane/tree/preview/apiserver/plane/api/urls
+
+# Huly API
+
+* https://github.com/hcengineering/huly-examples/tree/main/platform-api

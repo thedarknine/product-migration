@@ -7,6 +7,7 @@ name = "pypi"
 requests = "*"
 colorama = "*"
 python-dotenv = "*"
+bullet = "*"
 
 [dev-packages]
 
