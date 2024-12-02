@@ -19,11 +19,12 @@ class Client:
         if len(path) != 0:
             self.__endpoint = urllib.parse.urljoin(self.base_url, path)
     
-    def get(self):
+    def get(self, params=None):
         try:
             logging.info(f"Attempting to get list from: {self.get_endpoint()}")
             with httpx.Client() as client:
-                response = client.get(self.get_endpoint(), headers=self.headers)
+                response = client.get(self.get_endpoint(), headers=self.headers, params=params)
+                print(response.url)
                 response.raise_for_status() 
                 return response.json()
         except httpx.HTTPError as e:
