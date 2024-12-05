@@ -13,6 +13,11 @@ run:
 install:
 	poetry install
 
+## Lint code
+cs:
+#pylint --disable=trailing-whitespace app.py
+	poetry run pylint app.py utilities/*.py classes/*.py
+
 
 ## FORMATTER ==========================================================
 
