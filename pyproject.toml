@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "product-migration"
+version = "0.2.0"
+description = "Tool to migrate from OpenProject to Plane"
+authors = ["TheDarkNine <thedarknine@proton.me>"]
+license = "MIT"
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+colorama = "^0.4.6"
+httpx = "^0.28.0"
+pylint = "^3.3.1"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
