@@ -18,6 +18,10 @@ cs:
 #pylint --disable=trailing-whitespace app.py
 	poetry run pylint app.py utilities/*.py classes/*.py
 
+## Run tests
+test:
+	poetry run pytest -v
+
 
 ## FORMATTER ==========================================================
 
