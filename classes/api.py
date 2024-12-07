@@ -1,10 +1,10 @@
 """
 Provides generic methods to interact with APIs
 """
-import logging
 import urllib.parse
 import httpx
 from dotenv import load_dotenv
+from utilities import logs
 
 load_dotenv()
 
@@ -28,14 +28,15 @@ class Client:
 
     def get(self, params=None):
         """ Get method for API calls """
+        logger = logs.get_logger()
         try:
-            logging.info("Attempting to get list from: {self.get_endpoint()}")
+            logger.info(f"Attempting to get list from: {self.get_endpoint()}")
             with httpx.Client() as client:
                 response = client.get(self.get_endpoint(), headers=self.headers, params=params)
                 #print(response.url)
                 response.raise_for_status()
                 return response.json()
         except httpx.HTTPError as e:
-            logging.error("An error occurred: {e}")
+            logger.error("An error occurred: {e}")
             print(f"An error occurred: {e}")
             return None

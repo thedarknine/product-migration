@@ -1,10 +1,10 @@
 """
 Provides all methods to interact with Plane
 """
-import logging
 import os
 from dotenv import load_dotenv
 from classes import api as Api
+from utilities import logs
 
 load_dotenv()
 
@@ -22,7 +22,7 @@ class Client(Api.Client):
         Returns:
             list: A list of projects.
         """
-        logging.info("Attempting to get projects from Plane")
+        logs.get_logger().info("Attempting to get projects from Plane")
         self.set_endpoint(os.getenv("PLANE_PATH_PROJECTS"))
         if self.get_endpoint() is not None:
             return super().get()["results"]
@@ -39,7 +39,7 @@ class Client(Api.Client):
         Returns:
             list: A list of users.
         """
-        logging.info("Attempting to get users from Plane")
+        logs.get_logger().info("Attempting to get users from Plane")
         users_list = []
         # First, get projects
         projects_list = self.get_projects()
