@@ -44,7 +44,7 @@ __pycache__/
 # htmlcov/
 # .tox/
 # .nox/
-# .coverage
+.coverage
 # .coverage.*
 # .cache
 # nosetests.xml
@@ -52,7 +52,7 @@ __pycache__/
 # *.cover
 # *.py,cover
 # .hypothesis/
-# .pytest_cache/
+.pytest_cache/
 # cover/
 
 # Translations

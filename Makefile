@@ -20,7 +20,7 @@ cs:
 
 ## Run tests
 test:
-	poetry run pytest -v
+	poetry run pytest -v --cov=classes --cov=utilities
 
 
 ## FORMATTER ==========================================================
