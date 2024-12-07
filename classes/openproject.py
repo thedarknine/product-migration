@@ -1,7 +1,6 @@
 """
 Provides all methods to interact with OpenProject
 """
-import logging
 import os
 from dotenv import load_dotenv
 from classes import api as Api

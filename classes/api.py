@@ -30,7 +30,7 @@ class Client:
         """ Get method for API calls """
         logger = logs.get_logger()
         try:
-            logger.info(f"Attempting to get list from: {self.get_endpoint()}")
+            logger.info("Attempting to get list from: %s", self.get_endpoint())
             with httpx.Client() as client:
                 response = client.get(self.get_endpoint(), headers=self.headers, params=params)
                 #print(response.url)

@@ -28,8 +28,8 @@ def init_logger():
         handler.setLevel(logging.DEBUG)
 
         # Create a formatter and set it for the handler
-        FORMAT = '%(asctime)s [%(levelname)s] %(message)s - %(filename)s / %(funcName)s():(L.%(lineno)d) in %(pathname)s'
-        formatter = logging.Formatter(FORMAT)
+        formatter = logging.Formatter(
+            os.getenv("LOGS_FORMAT", '%(asctime)s - %(levelname)s - %(message)s'))
         handler.setFormatter(formatter)
 
         # Add the handler to the logger and set its level
