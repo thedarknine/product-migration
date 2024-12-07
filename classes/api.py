@@ -12,6 +12,8 @@ class Client:
     """ Client class to interact with APIs """
 
     def __init__(self, base_url, path=None, headers=None):
+        if not base_url:
+            raise ValueError("base_url is required")
         self.base_url = base_url
         self.path = path or ''
         self.headers = headers or {}
@@ -19,12 +21,16 @@ class Client:
 
     def get_endpoint(self):
         """ Endpoint attribute getter """
+        if self.__endpoint is None:
+            self.set_endpoint(self.path)
         return self.__endpoint
 
     def set_endpoint(self, path):
-        """ Endpoint attribute gsetter """
-        if len(path) != 0:
+        """ Endpoint attribute setter """
+        if path and len(path) != 0:
             self.__endpoint = urllib.parse.urljoin(self.base_url, path)
+        else:
+            self.__endpoint = self.base_url
 
     def get(self, params=None):
         """ Get method for API calls """
