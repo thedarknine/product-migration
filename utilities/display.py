@@ -5,7 +5,6 @@ import os
 from datetime import datetime, timedelta
 import colorama
 from colorama import Fore, Back, Style
-from utilities import logs
 
 # MANAGE DISPLAY LIST ------------------------------------------------------------------------------
 def items_list(listing):
@@ -55,7 +54,6 @@ def clear_screen():
 # DISPLAY START ------------------------------------------------------------------------------------
 def start_info(start_date, script_title):
     """Display project title and start time"""
-    logs.get_logger().info("Display start info")
     print(colors('green') + "\n\n***************************************************************")
     print(colors('green') + "* " + script_title.upper())
     print(colors('green') + "***************************************************************\n")
