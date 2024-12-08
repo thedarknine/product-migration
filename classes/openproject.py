@@ -24,12 +24,21 @@ class Client(Api.Client):
         """
         logs.get_logger().info("Attempting to get projects from OpenProject")
         self.set_endpoint(os.getenv("OPENPROJECT_PATH_PROJECTS"))
-        if self.get_endpoint() is not None:
-            excluded_projects = os.getenv("OPENPROJECT_EXCLUDED_PROJECTS", "").split(',')
-            projects_list = super().get()["_embedded"]["elements"]
-            return [project for project in projects_list
-                    if project["name"] not in excluded_projects ]
-        return None
+        excluded_projects = os.getenv("OPENPROJECT_EXCLUDED_PROJECTS", "").split(',')
+        projects_list = super().get()["_embedded"]["elements"]
+        return [project for project in projects_list
+                if project["name"] not in excluded_projects]
+
+    def get_users(self):
+        """
+        Retrieves a list of users from Plane.
+
+        Returns:
+            list: A list of users.
+        """
+        logs.get_logger().info("Attempting to get users from OpenProject")
+        self.set_endpoint(os.getenv("OPENPROJECT_PATH_USERS"))
+        return super().get()["_embedded"]["elements"]
 
     # Closed tickets : [{ "status_id": { "operator": "c" }}]
     # Open tickets : [{ "status_id": { "operator": "o" }}]
@@ -57,16 +66,3 @@ class Client(Api.Client):
                 remaining = tasks_list["total"] - (tasks_list["offset"] * 10)
                 loop += 1
         return all_tasks
-
-    def get_users(self):
-        """
-        Retrieves a list of users from Plane.
-
-        Returns:
-            list: A list of users.
-        """
-        logs.get_logger().info("Attempting to get users from OpenProject")
-        self.set_endpoint(os.getenv("OPENPROJECT_PATH_USERS"))
-        if self.get_endpoint() is not None:
-            return super().get()["_embedded"]["elements"]
-        return None
