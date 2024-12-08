@@ -1,8 +1,8 @@
 """
 Test to check display utilities
 """
-from utilities import display
 from datetime import datetime
+from utilities import display
 
 def test_colors():
     """Test colors"""

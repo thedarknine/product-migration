@@ -2,7 +2,6 @@
 Tests for the api module
 """
 import pytest
-import pathlib
 from classes import api
 from utilities import logs
 
@@ -60,6 +59,7 @@ def test_get(caplog):
     assert caplog.records[0].message == "An error occurred: [Errno -2] Name or service not known"
 
 def test_get_success(httpx_mock):
+    """Test the get method"""
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     httpx_mock.add_response(
         method="GET",
@@ -77,8 +77,8 @@ def test_get_error(httpx_mock, caplog):
 
     httpx_mock.add_response(401, json={"error": "Unauthorized"})
     assert client.get() is None
-    assert caplog.records[0].message.__contains__(
-        "An error occurred: Client error '401 Unauthorized' for url 'https://api.example.com/path'")
+    error_message  = "Client error '401 Unauthorized' for url 'https://api.example.com/path'"
+    assert error_message in caplog.records[0].message
 
     httpx_mock.add_response(403, json={"error": "Forbidden"})
     assert client.get() is None
