@@ -42,7 +42,8 @@ class Client:
                 #print(response.url)
                 response.raise_for_status()
                 return response.json()
+
         except httpx.HTTPError as e:
-            logger.error("An error occurred: {e}")
+            logger.error("An error occurred: %s", e)
             print(f"An error occurred: {e}")
             return None

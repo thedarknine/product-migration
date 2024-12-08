@@ -9,7 +9,7 @@ from colorama import Fore, Back, Style
 # MANAGE DISPLAY LIST ------------------------------------------------------------------------------
 def items_list(listing):
     """Display items of a list"""
-    if listing:
+    if listing and isinstance(listing, list):
         for item in listing:
             print(colors('grey') + "• " + item)
 

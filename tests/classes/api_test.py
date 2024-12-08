@@ -1,7 +1,12 @@
 """
 Tests for the api module
 """
+import pytest
+import pathlib
 from classes import api
+from utilities import logs
+
+logger = logs.get_logger()
 
 def test__init__():
     """Test the __init__ method"""
@@ -10,6 +15,13 @@ def test__init__():
     assert client.path == "path"
     assert client.headers == {"X-API-Key": "secret"}
     assert client.get_endpoint() == "https://api.example.com/path"
+
+    with pytest.raises(ValueError):
+        api.Client(None, "path", {"X-API-Key": "secret"})
+
+    with pytest.raises(ValueError):
+        api.Client(None)
+
 
 def test_get_endpoint():
     """Test the get_endpoint method"""
@@ -40,8 +52,39 @@ def test_set_endpoint():
     client.set_endpoint("path3")
     assert client.get_endpoint() == "https://api.example.com/path3"
 
-def test_get():
+def test_get(caplog):
     """Test the get method"""
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     assert client.get() is None
     assert client.get({"param": "value"}) is None
+    assert caplog.records[0].message == "An error occurred: [Errno -2] Name or service not known"
+
+def test_get_success(httpx_mock):
+    client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
+    httpx_mock.add_response(
+        method="GET",
+        url=client.get_endpoint(),
+        match_headers=client.headers,
+        status_code=200,
+        json=[]
+    )
+    result = client.get()
+    assert result == []
+
+def test_get_error(httpx_mock, caplog):
+    """Test the get method"""
+    client = api.Client("https://api.example.com", "path")
+
+    httpx_mock.add_response(401, json={"error": "Unauthorized"})
+    assert client.get() is None
+    assert caplog.records[0].message.__contains__(
+        "An error occurred: Client error '401 Unauthorized' for url 'https://api.example.com/path'")
+
+    httpx_mock.add_response(403, json={"error": "Forbidden"})
+    assert client.get() is None
+
+    httpx_mock.add_response(404, json={"error": "Not Found"})
+    assert client.get() is None
+
+    httpx_mock.add_response(500, json={"error": "Internal Server Error"})
+    assert client.get() is None

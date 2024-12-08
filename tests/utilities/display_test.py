@@ -26,6 +26,14 @@ def test_title():
     """Test title"""
     display.title("Test title")
 
+def test_items_list():
+    """Test items list"""
+    display.items_list(["Test item 1", "Test item 2", "Test item 3"])
+    display.items_list([])
+    display.items_list(None)
+    display.items_list("")
+    display.items_list(1)
+
 def test_clear_screen():
     """Test clear screen"""
     display.clear_screen()

@@ -7,14 +7,14 @@ import sys
 from datetime import datetime
 from utilities import display
 
-def init_logger():
+def init_logger(logs_path=os.getenv("LOGS_DIR", "logs")):
     """Initialize log file for current date"""
     try:
         cwd = os.path.dirname(os.path.abspath(__file__))
         current_date = datetime.now()
 
         # If directory does not exist, let's create it
-        logs_dir = os.path.join(cwd, '../' + os.getenv("LOGS_DIR", "logs"))
+        logs_dir = os.path.join(cwd, '../' + logs_path)
         if not os.path.exists(logs_dir):
             os.makedirs(logs_dir)
 
