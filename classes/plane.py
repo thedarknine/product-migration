@@ -12,10 +12,11 @@ class Client(Api.Client):
     """ Client class to interact with Plane """
 
     def __init__(self):
+        """Client Constructor"""
         headers = {'X-API-Key': os.getenv("PLANE_API_KEY")}
         super().__init__(os.getenv("PLANE_URL"), headers=headers)
 
-    def get_projects(self):
+    def get_projects(self) -> list:
         """
         Retrieves a list of projects from Plane.
 
@@ -28,7 +29,7 @@ class Client(Api.Client):
             return super().get()["results"]
         return None
 
-    def get_users(self):
+    def get_users(self) -> list:
         """
         Retrieves a list of users from Plane.
 

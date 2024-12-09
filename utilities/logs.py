@@ -7,8 +7,16 @@ import sys
 from datetime import datetime
 from utilities import display
 
-def init_logger(logs_path=os.getenv("LOGS_DIR", "logs")):
-    """Initialize log file for current date"""
+def init_logger(logs_path: str=os.getenv("LOGS_DIR", "logs")) -> logging.Logger:
+    """
+    Initialize log file for current date
+
+    Args:
+        logs_path (str): Path to logs directory
+
+    Returns:
+        logging.Logger: Logger object
+    """
     try:
         cwd = os.path.dirname(os.path.abspath(__file__))
         current_date = datetime.now()
@@ -41,5 +49,10 @@ def init_logger(logs_path=os.getenv("LOGS_DIR", "logs")):
         sys.exit(display.alert("Logs could not be initialized (" + repr(Exception) + ")"))
 
 def get_logger():
-    """Get logger with defined name"""
+    """
+    Get logger with defined name
+
+    Returns:
+        logging.Logger: Logger object
+    """
     return logging.getLogger(os.getenv("LOGS_NAME", "logs"))

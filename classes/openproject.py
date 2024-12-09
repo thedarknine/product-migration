@@ -12,10 +12,11 @@ class Client(Api.Client):
     """ Client class to interact with OpenProject """
 
     def __init__(self):
+        """Client Constructor"""
         headers = { 'Authorization': os.getenv("OPENPROJECT_API_AUTH") }
         super().__init__(os.getenv("OPENPROJECT_URL"), headers=headers)
 
-    def get_projects(self):
+    def get_projects(self) -> list:
         """
         Retrieves a list of projects from OpenProject.
 
@@ -29,7 +30,7 @@ class Client(Api.Client):
         return [project for project in projects_list
                 if project["name"] not in excluded_projects]
 
-    def get_users(self):
+    def get_users(self) -> list:
         """
         Retrieves a list of users from Plane.
 
@@ -42,7 +43,7 @@ class Client(Api.Client):
 
     # Closed tickets : [{ "status_id": { "operator": "c" }}]
     # Open tickets : [{ "status_id": { "operator": "o" }}]
-    def get_tasks(self):
+    def get_tasks(self) -> list:
         """
         Retrieves a list of tasks from Plane.
 

@@ -11,7 +11,15 @@ load_dotenv()
 class Client:
     """ Client class to interact with APIs """
 
-    def __init__(self, base_url, path=None, headers=None):
+    def __init__(self, base_url: str, path: str=None, headers: dict=None):
+        """
+        Client Constructor 
+
+        Args:
+            base_url (str): Base URL of the API
+            path (str, optional): Path to append to the base URL. Defaults to None.
+            headers (dict, optional): Headers to include in the request. Defaults to None.
+        """
         if not base_url:
             raise ValueError("base_url is required")
         self.base_url = base_url
@@ -19,21 +27,29 @@ class Client:
         self.headers = headers or {}
         self.__endpoint = None
 
-    def get_endpoint(self):
+    def get_endpoint(self) -> str:
         """ Endpoint attribute getter """
         if self.__endpoint is None:
             self.set_endpoint(self.path)
         return self.__endpoint
 
-    def set_endpoint(self, path):
+    def set_endpoint(self, path: str) -> None:
         """ Endpoint attribute setter """
         if path and len(path) != 0:
             self.__endpoint = urllib.parse.urljoin(self.base_url, path)
         else:
             self.__endpoint = self.base_url
 
-    def get(self, params=None):
-        """ Get method for API calls """
+    def get(self, params: dict=None) -> dict:
+        """
+        Get method for API calls
+
+        Args:
+            params (dict, optional): Parameters to include in the request. Defaults to None.
+
+        Returns:
+            dict: JSON response from the API
+        """
         logger = logs.get_logger()
         try:
             logger.info("Attempting to get list from: %s", self.get_endpoint())
