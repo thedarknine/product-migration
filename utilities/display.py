@@ -7,15 +7,25 @@ import colorama
 from colorama import Fore, Back, Style
 
 # MANAGE DISPLAY LIST ------------------------------------------------------------------------------
-def items_list(listing):
-    """Display items of a list"""
-    if listing:
+def items_list(listing: list) -> None:
+    """
+    Display items of a list
+
+    Args:
+        listing (list): List of items
+    """
+    if listing and isinstance(listing, list):
         for item in listing:
             print(colors('grey') + "• " + item)
 
 # COLORS -------------------------------------------------------------------------------------------
-def colors(name):
-    """Define colors system"""
+def colors(name: str) -> str:
+    """
+    Define colors system
+
+    Args:
+        name (str): Color name
+    """
     style = Style.RESET_ALL
     if name == "green":
         style = Fore.GREEN
@@ -32,28 +42,49 @@ def colors(name):
     return style
 
 # MANAGE DISPLAY MESSAGE ---------------------------------------------------------------------------
-def alert(message):
-    """Display alert message"""
+def alert(message: str) -> None:
+    """
+    Display alert message
+
+    Args:
+        message (str): Alert message
+    """
     print(colors('red') + "\n !!! \t" + message + colors('') + "\n")
 
-def info(message):
-    """Display info message"""
+def info(message: str) -> None:
+    """
+    Display info message
+
+    Args:
+        message (str): Info message
+    """
     if not message == '':
         print(colors('') + message + "\n")
 
-def title(message):
-    """Display section title"""
+def title(message: str) -> None:
+    """
+    Display section title
+
+    Args:
+        message (str): Section title
+    """
     print(Fore.YELLOW + "\n == " + message + " == " + colors(''))
 
 # CLEARSCREEN --------------------------------------------------------------------------------------
-def clear_screen():
+def clear_screen() -> None:
     """Reset defined parameter"""
     colorama.init(autoreset=True)
     os.system('cls' if os.name == 'nt' else 'clear')
 
 # DISPLAY START ------------------------------------------------------------------------------------
-def start_info(start_date, script_title):
-    """Display project title and start time"""
+def start_info(start_date: datetime, script_title: str) -> None:
+    """
+    Display project title and start time
+
+    Args:
+        start_date (datetime): Date and time with start of the script
+        script_title (str): Script title
+    """
     print(colors('green') + "\n\n***************************************************************")
     print(colors('green') + "* " + script_title.upper())
     print(colors('green') + "***************************************************************\n")
@@ -62,8 +93,13 @@ def start_info(start_date, script_title):
     print(colors(''))
 
 # DISPLAY END --------------------------------------------------------------------------------------
-def end_info(start_date):
-    """Display end time and duration"""
+def end_info(start_date: datetime) -> None:
+    """
+    Display end time and duration
+
+    Args:
+        start_date (datetime): Date and time with start of the script to compute duration
+    """
     end_date = datetime.now()
     print(colors('cyan') + "\n---------------------------------------------------------------")
     print(colors('cyan') + " • Fin du script : " + end_date.strftime('%d/%m/%Y à %H:%M:%S') + "\n")

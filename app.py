@@ -18,7 +18,7 @@ except FileNotFoundError:
 display.clear_screen()
 
 # Initialize logs
-logs.init_file()
+logger = logs.init_logger()
 
 # Initialize script info
 start_date = datetime.now()
@@ -38,6 +38,7 @@ def sync_projects(openproject_projects, plane_projects):
             pprint.pp("Skip " + project["name"])
 
 if __name__ == '__main__':
+    logger.debug("Starting script")
     plane_client = Plane.Client()
     pl_projects = plane_client.get_projects()
     #pprint.pp(result)
