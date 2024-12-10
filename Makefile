@@ -21,7 +21,8 @@ cs:
 
 ## Run tests
 test:
-	poetry run pytest -v --cov=classes --cov=utilities
+	poetry run pytest 
+#poetry run pytest -vv --cov=classes --cov=utilities
 
 ## Run tests with coverage report
 test-report:

@@ -31,6 +31,16 @@ def test_get_projects_return_list(httpx_mock):
     assert isinstance(result, list)
 
 
+def test_get_two_projects_return_two_elements():
+    """Test the get_projects method"""
+    client = plane.Client()
+    response = client.get_projects()
+    # Return only result into results subarray
+    assert "results" not in response
+    assert isinstance(response, list)
+    assert len(response) == 2
+
+
 def test_get_projects_write_logging(httpx_mock, caplog):
     """Test the get_projects method"""
     httpx_mock.add_response(200, json={"results": []})
@@ -47,6 +57,14 @@ def test_get_users_return_list(httpx_mock):
     result = client.get_users()
     assert not result
     assert isinstance(result, list)
+
+
+def test_get_two_users_return_two_elements():
+    """Test the get_users method"""
+    client = plane.Client()
+    response = client.get_users()
+    assert isinstance(response, list)
+    assert len(response) == 2
 
 
 def test_get_users_write_logging(httpx_mock, caplog):

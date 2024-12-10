@@ -78,6 +78,8 @@ class Client(Api.Client):
                 all_tasks.extend(
                     [task for task in tasks_list["_embedded"]["elements"] if tasks_list]
                 )
+                if "offset" not in tasks_list:
+                    break
                 remaining = tasks_list["total"] - (tasks_list["offset"] * 10)
                 loop += 1
         return all_tasks

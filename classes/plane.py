@@ -27,9 +27,7 @@ class Client(Api.Client):
         """
         logs.get_logger().info("Attempting to get projects from Plane")
         self.set_endpoint(os.getenv("PLANE_PATH_PROJECTS"))
-        if self.get_endpoint() is not None:
-            return super().get()["results"]
-        return None
+        return super().get()["results"]
 
     def get_users(self) -> list:
         """
@@ -53,5 +51,5 @@ class Client(Api.Client):
                 )
             )
             members_list = super().get()
-            users_list.append([user for user in members_list if members_list])
+            users_list.extend([user for user in members_list if user not in users_list])
         return users_list

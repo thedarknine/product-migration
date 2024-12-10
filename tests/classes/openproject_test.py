@@ -31,6 +31,17 @@ def test_get_projects_return_list(httpx_mock):
     assert isinstance(response, list)
 
 
+def test_get_two_projects_return_two_elements():
+    """Test the get_projects method"""
+    client = openproject.Client()
+    response = client.get_projects()
+    # Return only result into elements subarray
+    assert "_embedded" not in response
+    assert "elements" not in response
+    assert isinstance(response, list)
+    assert len(response) == 2
+
+
 def test_get_projects_write_logging(httpx_mock, caplog):
     """Test the get_projects method"""
     httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
@@ -49,6 +60,17 @@ def test_get_users_return_list(httpx_mock):
     assert isinstance(response, list)
 
 
+def test_get_two_users_return_two_elements():
+    """Test the get_users method"""
+    client = openproject.Client()
+    response = client.get_users()
+    # Return only result into elements subarray
+    assert "_embedded" not in response
+    assert "elements" not in response
+    assert isinstance(response, list)
+    assert len(response) == 2
+
+
 def test_get_users_write_logging(httpx_mock, caplog):
     """Test the get_users method"""
     httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
@@ -65,6 +87,17 @@ def test_get_tasks_return_list(httpx_mock):
     response = client.get_tasks()
     assert not response
     assert isinstance(response, list)
+
+
+def test_get_four_tasks_return_four_elements():
+    """Test the get_tasks method"""
+    client = openproject.Client()
+    response = client.get_tasks()
+    # Return only result into elements subarray
+    assert "_embedded" not in response
+    assert "elements" not in response
+    assert isinstance(response, list)
+    assert len(response) == 4
 
 
 def test_get_tasks_write_logging(httpx_mock, caplog):
