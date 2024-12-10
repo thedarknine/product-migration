@@ -1,11 +1,13 @@
 """
 Tests for the api module
 """
+
 import pytest
 from classes import api
 from utilities import logs
 
 logger = logs.get_logger()
+
 
 def test__init__():
     """Test the __init__ method"""
@@ -36,6 +38,7 @@ def test_get_endpoint():
     client.set_endpoint(None)
     assert client.get_endpoint() == "https://api.example.com"
 
+
 def test_set_endpoint():
     """Test the set_endpoint method"""
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
@@ -51,12 +54,17 @@ def test_set_endpoint():
     client.set_endpoint("path3")
     assert client.get_endpoint() == "https://api.example.com/path3"
 
+
 def test_get(caplog):
     """Test the get method"""
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     assert client.get() is None
     assert client.get({"param": "value"}) is None
-    assert caplog.records[0].message == "An error occurred: [Errno -2] Name or service not known"
+    assert (
+        caplog.records[0].message
+        == "An error occurred: [Errno -2] Name or service not known"
+    )
+
 
 def test_get_success(httpx_mock):
     """Test the get method"""
@@ -66,10 +74,11 @@ def test_get_success(httpx_mock):
         url=client.get_endpoint(),
         match_headers=client.headers,
         status_code=200,
-        json=[]
+        json=[],
     )
     result = client.get()
     assert result == []
+
 
 def test_get_error(httpx_mock, caplog):
     """Test the get method"""
@@ -77,7 +86,9 @@ def test_get_error(httpx_mock, caplog):
 
     httpx_mock.add_response(401, json={"error": "Unauthorized"})
     assert client.get() is None
-    error_message  = "Client error '401 Unauthorized' for url 'https://api.example.com/path'"
+    error_message = (
+        "Client error '401 Unauthorized' for url 'https://api.example.com/path'"
+    )
     assert error_message in caplog.records[0].message
 
     httpx_mock.add_response(403, json={"error": "Forbidden"})

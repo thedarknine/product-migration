@@ -1,6 +1,7 @@
 """
 Provides all methods to interact with OpenProject
 """
+
 import os
 from dotenv import load_dotenv
 from classes import api as Api
@@ -8,12 +9,13 @@ from utilities import logs
 
 load_dotenv()
 
+
 class Client(Api.Client):
-    """ Client class to interact with OpenProject """
+    """Client class to interact with OpenProject"""
 
     def __init__(self):
         """Client Constructor"""
-        headers = { 'Authorization': os.getenv("OPENPROJECT_API_AUTH") }
+        headers = {"Authorization": os.getenv("OPENPROJECT_API_AUTH")}
         super().__init__(os.getenv("OPENPROJECT_URL"), headers=headers)
 
     def get_projects(self) -> list:
@@ -25,10 +27,13 @@ class Client(Api.Client):
         """
         logs.get_logger().info("Attempting to get projects from OpenProject")
         self.set_endpoint(os.getenv("OPENPROJECT_PATH_PROJECTS"))
-        excluded_projects = os.getenv("OPENPROJECT_EXCLUDED_PROJECTS", "").split(',')
+        excluded_projects = os.getenv("OPENPROJECT_EXCLUDED_PROJECTS", "").split(",")
         projects_list = super().get()["_embedded"]["elements"]
-        return [project for project in projects_list
-                if project["name"] not in excluded_projects]
+        return [
+            project
+            for project in projects_list
+            if project["name"] not in excluded_projects
+        ]
 
     def get_users(self) -> list:
         """
@@ -55,15 +60,26 @@ class Client(Api.Client):
         projects_list = self.get_projects()
         all_tasks = []
         for project in projects_list or []:
-            self.set_endpoint(str.replace(os.getenv("OPENPROJECT_PATH_TASKS"),
-                                          "{PROJECT_ID}", str(project["id"])))
+            self.set_endpoint(
+                str.replace(
+                    os.getenv("OPENPROJECT_PATH_TASKS"),
+                    "{PROJECT_ID}",
+                    str(project["id"]),
+                )
+            )
             # Retrieve paginated results
             remaining = loop = 1
             while remaining >= 0:
-                tasks_list = super().get('[{"status_id":{"operator":"o"}}]&offset='
-                                         + str(loop) + '&pageSize=10')
-                all_tasks.extend([task for task in tasks_list["_embedded"]["elements"]
-                                  if tasks_list])
+                tasks_list = super().get(
+                    '[{"status_id":{"operator":"o"}}]&offset='
+                    + str(loop)
+                    + "&pageSize=10"
+                )
+                all_tasks.extend(
+                    [task for task in tasks_list["_embedded"]["elements"] if tasks_list]
+                )
+                if "offset" not in tasks_list:
+                    break
                 remaining = tasks_list["total"] - (tasks_list["offset"] * 10)
                 loop += 1
         return all_tasks

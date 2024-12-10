@@ -17,10 +17,12 @@ install:
 cs:
 #pylint --disable=trailing-whitespace app.py
 	poetry run pylint app.py utilities/*.py classes/*.py tests/classes/*.py tests/utilities/*.py
+	poetry run black app.py utilities/*.py classes/*.py tests/classes/*.py tests/utilities/*.py --diff
 
 ## Run tests
 test:
-	poetry run pytest -v --cov=classes --cov=utilities
+	poetry run pytest 
+#poetry run pytest -vv --cov=classes --cov=utilities
 
 ## Run tests with coverage report
 test-report:
