@@ -33,19 +33,21 @@ def colors(name: str) -> str:
     Args:
         name (str): Color name
     """
-    style = Style.RESET_ALL
-    if name == "green":
-        style = Fore.GREEN
-    if name == "white":
-        style = Back.WHITE
-    if name == "red":
-        style = Back.RED + Fore.BLACK
-    if name == "cyan":
-        style = Fore.CYAN + Style.DIM
-    if name == "grey":
-        style = Fore.BLACK
-    if name == "yellow":
-        style = Fore.YELLOW + Style.DIM
+    match name:
+        case "green":
+            style = Fore.GREEN
+        case "white":
+            style = Back.WHITE
+        case "red":
+            style = Back.RED + Fore.BLACK
+        case "cyan":
+            style = Fore.CYAN + Style.DIM
+        case "grey":
+            style = Fore.BLACK
+        case "yellow":
+            style = Fore.YELLOW + Style.DIM
+        case _:
+            style = Style.RESET_ALL
     return style
 
 
