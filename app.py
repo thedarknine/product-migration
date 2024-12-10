@@ -60,5 +60,4 @@ if __name__ == "__main__":
 
     # End script
     display.end_info(start_date)
-    display.deinit()
     sys.exit()

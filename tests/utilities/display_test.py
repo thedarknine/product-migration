@@ -6,17 +6,6 @@ import arrow
 from utilities import display
 
 
-def test_colors():
-    """Test colors"""
-    assert display.colors("green")
-    assert display.colors("white")
-    assert display.colors("red")
-    assert display.colors("cyan")
-    assert display.colors("grey")
-    assert display.colors("yellow")
-    assert display.colors("")
-
-
 def test_info():
     """Test info"""
     display.info("Test info")
@@ -54,8 +43,3 @@ def test_start_info():
 def test_end_info():
     """Test end info"""
     display.end_info(arrow.now())
-
-
-def test_deinit():
-    """Test deinit"""
-    display.deinit()

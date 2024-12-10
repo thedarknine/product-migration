@@ -5,11 +5,20 @@ Terminal output utilitiy tools
 import os
 from datetime import timedelta
 import arrow
-import colorama
-from colorama import Fore, Back, Style
+from rich.console import Console
+from rich.style import Style
 
 STARRED_LINE = "***************************************************************"
 DOTTED_LINE = "---------------------------------------------------------------"
+
+# COLORS -------------------------------------------------------------------------------------------
+console = Console()
+danger_style = Style(color="red1", blink=True)
+green_style = Style(color="green")
+white_style = Style(color="white")
+cyan_style = Style(color="cyan")
+yellow_style = Style(color="gold1")
+grey_style = Style(color="bright_black")
 
 
 # MANAGE DISPLAY LIST ------------------------------------------------------------------------------
@@ -22,33 +31,7 @@ def items_list(listing: list) -> None:
     """
     if listing and isinstance(listing, list):
         for item in listing:
-            print(colors("grey") + "• " + item)
-
-
-# COLORS -------------------------------------------------------------------------------------------
-def colors(name: str) -> str:
-    """
-    Define colors system
-
-    Args:
-        name (str): Color name
-    """
-    match name:
-        case "green":
-            style = Fore.GREEN
-        case "white":
-            style = Back.WHITE
-        case "red":
-            style = Back.RED + Fore.BLACK
-        case "cyan":
-            style = Fore.CYAN + Style.DIM
-        case "grey":
-            style = Fore.BLACK
-        case "yellow":
-            style = Fore.YELLOW + Style.DIM
-        case _:
-            style = Style.RESET_ALL
-    return style
+            console.print("• " + item, style=grey_style)
 
 
 # MANAGE DISPLAY MESSAGE ---------------------------------------------------------------------------
@@ -59,7 +42,7 @@ def alert(message: str) -> None:
     Args:
         message (str): Alert message
     """
-    print(colors("red") + "\n !!! \t" + message + colors("") + "\n")
+    console.print("\n !!! \t" + message + "\n", style=danger_style)
 
 
 def info(message: str) -> None:
@@ -70,7 +53,7 @@ def info(message: str) -> None:
         message (str): Info message
     """
     if not message == "":
-        print(colors("") + message + "\n")
+        console.print(message + "\n")
 
 
 def title(message: str) -> None:
@@ -80,13 +63,12 @@ def title(message: str) -> None:
     Args:
         message (str): Section title
     """
-    print(Fore.YELLOW + "\n == " + message + " == " + colors(""))
+    console.print("\n == " + message + " == ", style=yellow_style)
 
 
 # CLEARSCREEN --------------------------------------------------------------------------------------
 def clear_screen() -> None:
     """Reset defined parameter"""
-    colorama.init(autoreset=True)
     os.system("cls" if os.name == "nt" else "clear")
 
 
@@ -99,16 +81,14 @@ def start_info(start_date: arrow, script_title: str) -> None:
         start_date (arrow): Date and time with start of the script
         script_title (str): Script title
     """
-    print(colors("green") + "\n\n" + STARRED_LINE)
-    print(colors("green") + "* " + script_title.upper())
-    print(colors("green") + STARRED_LINE + "\n")
-    print(
-        colors("cyan")
-        + " • Lancement du script : "
-        + start_date.format("DD/MM/YYYY à HH:mm:ss")
+    console.print("\n\n" + STARRED_LINE, style=green_style)
+    console.print("* " + script_title.upper(), style=green_style)
+    console.print(STARRED_LINE + "\n", style=green_style)
+    console.print(
+        " • Lancement du script : " + start_date.format("DD/MM/YYYY à HH:mm:ss"),
+        style=cyan_style,
     )
-    print(colors("cyan") + DOTTED_LINE + "\n")
-    print(colors(""))
+    console.print(DOTTED_LINE + "\n", style=cyan_style)
 
 
 # DISPLAY END --------------------------------------------------------------------------------------
@@ -120,24 +100,16 @@ def end_info(start_date: arrow) -> None:
         start_date (arrow): Date and time with start of the script to compute duration
     """
     end_date = arrow.now(os.getenv("TIMEZONE", "Europe/Paris"))
-    print(colors("cyan") + "\n" + DOTTED_LINE)
-    print(
-        colors("cyan")
-        + " • Fin du script : "
-        + end_date.format("DD/MM/YYYY à HH:mm:ss")
-        + "\n"
+    console.print("\n" + DOTTED_LINE, style=cyan_style)
+    console.print(
+        " • Fin du script : " + end_date.format("DD/MM/YYYY à HH:mm:ss") + "\n",
+        style=cyan_style,
     )
     # Globale execution time
     diff = end_date - start_date
-    print(
-        colors("yellow")
-        + " ==> Temps d'exécution total : "
+    console.print(
+        " ==> Temps d'exécution total : "
         + str(timedelta(seconds=diff.seconds))
-        + "\n\n"
+        + "\n\n",
+        style=yellow_style,
     )
-
-
-# DEINIT COLORAMA ----------------------------------------------------------------------------------
-def deinit():
-    """Remove colorama parameters"""
-    colorama.deinit()
