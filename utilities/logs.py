@@ -5,7 +5,7 @@ Logging utilitiy tools
 import logging
 import os
 import sys
-from datetime import datetime
+import arrow
 from utilities import display
 
 
@@ -21,7 +21,7 @@ def init_logger(logs_path: str = os.getenv("LOGS_DIR", "logs")) -> logging.Logge
     """
     try:
         cwd = os.path.dirname(os.path.abspath(__file__))
-        current_date = datetime.now()
+        current_date = arrow.now(os.getenv("TIMEZONE", "Europe/Paris"))
 
         # If directory does not exist, let's create it
         logs_dir = os.path.join(cwd, "../" + logs_path)

@@ -5,7 +5,7 @@ Main file for migration
 import os
 import sys
 import pprint
-from datetime import datetime
+import arrow
 from dotenv import load_dotenv
 from classes import plane as Plane, openproject as OpenProject
 from utilities import display, logs
@@ -22,7 +22,7 @@ display.clear_screen()
 logger = logs.init_logger()
 
 # Initialize script info
-start_date = datetime.now()
+start_date = arrow.now(os.getenv("TIMEZONE", "Europe/Paris"))
 display.start_info(start_date, "Migration")
 
 
@@ -59,6 +59,6 @@ if __name__ == "__main__":
     # pprint.pp(result)
 
     # End script
-    # display.end_info(start_date)
+    display.end_info(start_date)
     display.deinit()
     sys.exit()

@@ -2,7 +2,7 @@
 Test to check display utilities
 """
 
-from datetime import datetime
+import arrow
 from utilities import display
 
 
@@ -48,12 +48,12 @@ def test_clear_screen():
 
 def test_start_info():
     """Test start info"""
-    display.start_info(datetime.now(), "Test start info")
+    display.start_info(arrow.now(), "Test start info")
 
 
 def test_end_info():
     """Test end info"""
-    display.end_info(datetime.now())
+    display.end_info(arrow.now())
 
 
 def test_deinit():

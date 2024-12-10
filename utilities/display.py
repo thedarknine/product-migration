@@ -3,7 +3,8 @@ Terminal output utilitiy tools
 """
 
 import os
-from datetime import datetime, timedelta
+from datetime import timedelta
+import arrow
 import colorama
 from colorama import Fore, Back, Style
 
@@ -88,12 +89,12 @@ def clear_screen() -> None:
 
 
 # DISPLAY START ------------------------------------------------------------------------------------
-def start_info(start_date: datetime, script_title: str) -> None:
+def start_info(start_date: arrow, script_title: str) -> None:
     """
     Display project title and start time
 
     Args:
-        start_date (datetime): Date and time with start of the script
+        start_date (arrow): Date and time with start of the script
         script_title (str): Script title
     """
     print(colors("green") + "\n\n" + STARRED_LINE)
@@ -102,26 +103,26 @@ def start_info(start_date: datetime, script_title: str) -> None:
     print(
         colors("cyan")
         + " • Lancement du script : "
-        + start_date.strftime("%d/%m/%Y à %H:%M:%S")
+        + start_date.format("DD/MM/YYYY à HH:mm:ss")
     )
     print(colors("cyan") + DOTTED_LINE + "\n")
     print(colors(""))
 
 
 # DISPLAY END --------------------------------------------------------------------------------------
-def end_info(start_date: datetime) -> None:
+def end_info(start_date: arrow) -> None:
     """
     Display end time and duration
 
     Args:
-        start_date (datetime): Date and time with start of the script to compute duration
+        start_date (arrow): Date and time with start of the script to compute duration
     """
-    end_date = datetime.now()
+    end_date = arrow.now(os.getenv("TIMEZONE", "Europe/Paris"))
     print(colors("cyan") + "\n" + DOTTED_LINE)
     print(
         colors("cyan")
         + " • Fin du script : "
-        + end_date.strftime("%d/%m/%Y à %H:%M:%S")
+        + end_date.format("DD/MM/YYYY à HH:mm:ss")
         + "\n"
     )
     # Globale execution time
