@@ -3,8 +3,8 @@ Tests for the api module
 """
 
 import pytest
-from classes import api
-from utilities import logs
+from sources.classes import api
+from sources.utilities import logs
 
 logger = logs.get_logger()
 

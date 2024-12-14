@@ -4,7 +4,7 @@ Tests for the plane module
 
 import os
 import logging
-from classes import plane
+from sources.classes import plane
 
 
 def test__init__():

@@ -3,7 +3,7 @@ Test to check display utilities
 """
 
 import arrow
-from utilities import display
+from sources.utilities import display
 
 
 def test_info():
