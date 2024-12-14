@@ -4,7 +4,7 @@ Tests for the openproject module
 
 import os
 import logging
-from classes import openproject
+from sources.classes import openproject
 
 
 def test__init__():
@@ -65,6 +65,7 @@ def test_get_two_users_return_two_elements():
     client = openproject.Client()
     response = client.get_users()
     # Return only result into elements subarray
+    print(response)
     assert "_embedded" not in response
     assert "elements" not in response
     assert isinstance(response, list)

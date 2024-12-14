@@ -4,8 +4,8 @@ Provides all methods to interact with Plane
 
 import os
 from dotenv import load_dotenv
-from classes import api as Api
-from utilities import logs
+from sources.classes import api as Api
+from sources.utilities import logs
 
 load_dotenv()
 

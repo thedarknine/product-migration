@@ -7,7 +7,7 @@ SHELL := /bin/bash
 
 ## Run the application
 run:
-	poetry run python app.py
+	poetry run python main.py
 
 ## Install dependencies
 install:
@@ -15,9 +15,9 @@ install:
 
 ## Lint code
 cs:
-#pylint --disable=trailing-whitespace app.py
-	poetry run pylint app.py utilities/*.py classes/*.py tests/classes/*.py tests/utilities/*.py
-	poetry run black app.py utilities/*.py classes/*.py tests/classes/*.py tests/utilities/*.py --diff
+#pylint --disable=trailing-whitespace main.py
+	poetry run pylint main.py sources/utilities/*.py sources/classes/*.py tests/classes/*.py tests/utilities/*.py
+	poetry run black main.py sources/utilities/*.py sources/classes/*.py tests/classes/*.py tests/utilities/*.py --diff
 
 ## Run tests
 test:

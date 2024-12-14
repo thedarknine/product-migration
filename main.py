@@ -7,8 +7,8 @@ import sys
 import pprint
 import arrow
 from dotenv import load_dotenv
-from classes import plane as Plane, openproject as OpenProject
-from utilities import display, logs
+from sources.classes import plane as Plane, openproject as OpenProject
+from sources.utilities import display, logs
 
 # Load env variables
 try:

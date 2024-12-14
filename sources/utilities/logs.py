@@ -6,7 +6,7 @@ import logging
 import os
 import sys
 import arrow
-from utilities import display
+from sources.utilities import display
 
 
 def init_logger(logs_path: str = os.getenv("LOGS_DIR", "logs")) -> logging.Logger:
@@ -20,11 +20,10 @@ def init_logger(logs_path: str = os.getenv("LOGS_DIR", "logs")) -> logging.Logge
         logging.Logger: Logger object
     """
     try:
-        cwd = os.path.dirname(os.path.abspath(__file__))
         current_date = arrow.now(os.getenv("TIMEZONE", "Europe/Paris"))
 
         # If directory does not exist, let's create it
-        logs_dir = os.path.join(cwd, "../" + logs_path)
+        logs_dir = os.path.join(os.getcwd(), logs_path)
         if not os.path.exists(logs_dir):
             os.makedirs(logs_dir)
 

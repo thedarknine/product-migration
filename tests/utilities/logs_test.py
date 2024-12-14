@@ -4,7 +4,7 @@ Test to check if log file is correctly initialized
 
 import os
 import pathlib
-from utilities import logs
+from sources.utilities import logs
 
 
 def test_init_logger():
