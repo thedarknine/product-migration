@@ -5,7 +5,7 @@ Provides generic methods to interact with APIs
 import urllib.parse
 import httpx
 from dotenv import load_dotenv
-from utilities import logs
+from sources.utilities import logs
 
 load_dotenv()
 

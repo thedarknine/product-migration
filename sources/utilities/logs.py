@@ -6,7 +6,7 @@ import logging
 import os
 import sys
 import arrow
-from utilities import display
+from sources.utilities import display
 
 
 def init_logger(logs_path: str = os.getenv("LOGS_DIR", "logs")) -> logging.Logger:
