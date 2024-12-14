@@ -1,0 +1,18 @@
+[
+    {
+        "id": "729646b9-eb3a-490e-a36d-1363f15f2d09",
+        "first_name": "Luke",
+        "last_name": "Skywalker",
+        "email": "luke.skywalker@yopmail.com",
+        "avatar": "",
+        "display_name": "luke.skywalker"
+    },
+    {
+        "id": "dd9e7e87-63fa-4dc0-ae6a-21574655e2b8",
+        "first_name": "Darth",
+        "last_name": "Vader",
+        "email": "darth.vader@yopmail.com",
+        "avatar": "",
+        "display_name": "darth.vader"
+    }
+]

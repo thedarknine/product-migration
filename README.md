@@ -48,11 +48,6 @@ poetry run python [script-name].py
 * https://openproject.leviia.com/api/v3/spec.yml
 * https://www.openproject.org/docs/api/endpoints/projects/
 
-### Mocky
-
-* Projects: https://run.mocky.io/v3/732980e7-f749-4087-990d-e060306721f7
-* Tasks: https://run.mocky.io/v3/7e4bbfb4-05fd-4d68-81e5-99571e5ba2ba
-
 ---
 
 ## Plane API

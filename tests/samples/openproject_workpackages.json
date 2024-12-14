@@ -1,0 +1,500 @@
+{
+    "_type": "WorkPackageCollection",
+    "total": 17,
+    "count": 17,
+    "pageSize": 20,
+    "offset": 1,
+    "_embedded": {
+        "elements": [
+            {
+                "derivedStartDate": null,
+                "derivedDueDate": null,
+                "spentTime": "PT0S",
+                "laborCosts": "0,00 EUR",
+                "materialCosts": "0,00 EUR",
+                "overallCosts": "0,00 EUR",
+                "_type": "WorkPackage",
+                "id": 637,
+                "lockVersion": 29,
+                "subject": "[DARK-18] The Empire Strikes Back",
+                "description": {
+                    "format": "markdown",
+                    "raw": "# Overview\n\n*   **Description:** Three years after the destruction of the Death Star,[iii] the Imperial fleet, led by Darth Vader, dispatches probe droids across the galaxy in search for the Rebel Alliance.",
+                    "html": ""
+                },
+                "scheduleManually": false,
+                "startDate": null,
+                "dueDate": null,
+                "estimatedTime": null,
+                "derivedEstimatedTime": null,
+                "derivedRemainingTime": null,
+                "duration": null,
+                "ignoreNonWorkingDays": false,
+                "percentageDone": null,
+                "derivedPercentageDone": null,
+                "createdAt": "2023-05-19T06:37:08.486Z",
+                "updatedAt": "2024-10-23T10:48:06.504Z",
+                "readonly": false,
+                "customField5": null,
+                "customField13": null,
+                "customField14": null,
+                "_links": {
+                    "attachments": {
+                        "href": "/api/v3/work_packages/637/attachments"
+                    },
+                    "addAttachment": {
+                        "href": "/api/v3/work_packages/637/attachments",
+                        "method": "post"
+                    },
+                    "fileLinks": {
+                        "href": "/api/v3/work_packages/637/file_links"
+                    },
+                    "addFileLink": {
+                        "href": "/api/v3/work_packages/637/file_links",
+                        "method": "post"
+                    },
+                    "update": {
+                        "href": "/api/v3/work_packages/637/form",
+                        "method": "post"
+                    },
+                    "schema": {
+                        "href": "/api/v3/work_packages/schemas/16-20"
+                    },
+                    "updateImmediately": {
+                        "href": "/api/v3/work_packages/637",
+                        "method": "patch"
+                    },
+                    "delete": {
+                        "href": "/api/v3/work_packages/637",
+                        "method": "delete"
+                    },
+                    "logTime": {
+                        "href": "/api/v3/time_entries",
+                        "title": "Log time on work package '[DARK-18] The Empire Strikes Back'"
+                    },
+                    "move": {
+                        "href": "/work_packages/637/move/new",
+                        "type": "text/html",
+                        "title": "Move work package '[DARK-18] The Empire Strikes Back'"
+                    },
+                    "copy": {
+                        "href": "/work_packages/637/copy",
+                        "type": "text/html",
+                        "title": "Copy work package '[DARK-18] The Empire Strikes Back'"
+                    },
+                    "pdf": {
+                        "href": "/work_packages/637.pdf",
+                        "type": "application/pdf",
+                        "title": "Export as PDF"
+                    },
+                    "atom": {
+                        "href": "/work_packages/637.atom",
+                        "type": "application/rss+xml",
+                        "title": "Atom feed"
+                    },
+                    "availableRelationCandidates": {
+                        "href": "/api/v3/work_packages/637/available_relation_candidates",
+                        "title": "Potential work packages to relate to"
+                    },
+                    "customFields": {
+                        "href": "/projects/interne/settings/custom_fields",
+                        "type": "text/html",
+                        "title": "Custom fields"
+                    },
+                    "configureForm": {
+                        "href": "/types/20/edit?tab=form_configuration",
+                        "type": "text/html",
+                        "title": "Configure form"
+                    },
+                    "activities": {
+                        "href": "/api/v3/work_packages/637/activities"
+                    },
+                    "availableWatchers": {
+                        "href": "/api/v3/work_packages/637/available_watchers"
+                    },
+                    "relations": {
+                        "href": "/api/v3/work_packages/637/relations"
+                    },
+                    "watchers": {
+                        "href": "/api/v3/work_packages/637/watchers"
+                    },
+                    "addWatcher": {
+                        "href": "/api/v3/work_packages/637/watchers",
+                        "method": "post",
+                        "payload": {
+                            "user": {
+                                "href": "/api/v3/users/{user_id}"
+                            }
+                        },
+                        "templated": true
+                    },
+                    "removeWatcher": {
+                        "href": "/api/v3/work_packages/637/watchers/{user_id}",
+                        "method": "delete",
+                        "templated": true
+                    },
+                    "addRelation": {
+                        "href": "/api/v3/work_packages/637/relations",
+                        "method": "post",
+                        "title": "Add relation"
+                    },
+                    "addChild": {
+                        "href": "/api/v3/projects/interne/work_packages",
+                        "method": "post",
+                        "title": "Add child of [DARK-18] The Empire Strikes Back"
+                    },
+                    "changeParent": {
+                        "href": "/api/v3/work_packages/637",
+                        "method": "patch",
+                        "title": "Change parent of [DARK-18] The Empire Strikes Back"
+                    },
+                    "addComment": {
+                        "href": "/api/v3/work_packages/637/activities",
+                        "method": "post",
+                        "title": "Add comment"
+                    },
+                    "previewMarkup": {
+                        "href": "/api/v3/render/markdown?context=/api/v3/work_packages/637",
+                        "method": "post"
+                    },
+                    "timeEntries": {
+                        "href": "/api/v3/time_entries?filters=%5B%7B%22work_package_id%22%3A%7B%22operator%22%3A%22%3D%22%2C%22values%22%3A%5B%22637%22%5D%7D%7D%5D",
+                        "title": "Time entries"
+                    },
+                    "category": {
+                        "href": null
+                    },
+                    "type": {
+                        "href": "/api/v3/types/20",
+                        "title": "Vulnérabilité"
+                    },
+                    "priority": {
+                        "href": "/api/v3/priorities/8",
+                        "title": "Normal"
+                    },
+                    "project": {
+                        "href": "/api/v3/projects/16",
+                        "title": "Interne"
+                    },
+                    "status": {
+                        "href": "/api/v3/statuses/3",
+                        "title": "Specified"
+                    },
+                    "author": {
+                        "href": "/api/v3/users/5",
+                        "title": "Dark Vader"
+                    },
+                    "responsible": {
+                        "href": "/api/v3/users/5",
+                        "title": "Dark Vader"
+                    },
+                    "assignee": {
+                        "href": "/api/v3/users/35",
+                        "title": "Luke Skywalker"
+                    },
+                    "version": {
+                        "href": null
+                    },
+                    "logCosts": {
+                        "href": "/work_packages/637/cost_entries/new",
+                        "type": "text/html",
+                        "title": "Log costs on [DARK-18] The Empire Strikes Back"
+                    },
+                    "showCosts": {
+                        "href": "/projects/16/cost_reports?fields%5B%5D=WorkPackageId&operators%5BWorkPackageId%5D=%3D&set_filter=1&values%5BWorkPackageId%5D=637",
+                        "type": "text/html",
+                        "title": "Show cost entries"
+                    },
+                    "costsByType": {
+                        "href": "/api/v3/work_packages/637/summarized_costs_by_type"
+                    },
+                    "github_pull_requests": {
+                        "href": "/api/v3/work_packages/637/github_pull_requests",
+                        "title": "GitHub pull requests"
+                    },
+                    "gitlab_merge_requests": {
+                        "href": "/api/v3/work_packages/637/gitlab_merge_requests",
+                        "title": "Gitlab merge requests"
+                    },
+                    "gitlab_issues": {
+                        "href": "/api/v3/work_packages/637/gitlab_issues",
+                        "title": "Gitlab Issues"
+                    },
+                    "customField10": {
+                        "title": "Wordpress",
+                        "href": "/api/v3/custom_options/21"
+                    },
+                    "self": {
+                        "href": "/api/v3/work_packages/637",
+                        "title": "[DARK-18] The Empire Strikes Back"
+                    },
+                    "watch": {
+                        "href": "/api/v3/work_packages/637/watchers",
+                        "method": "post",
+                        "payload": {
+                            "user": {
+                                "href": "/api/v3/users/35"
+                            }
+                        }
+                    },
+                    "ancestors": [
+                        {
+                            "href": "/api/v3/work_packages/2033",
+                            "title": "[DARK-1] Star Wars"
+                        }
+                    ],
+                    "parent": {
+                        "href": "/api/v3/work_packages/2033",
+                        "title": "[DARK-1] Star Wars"
+                    },
+                    "customActions": []
+                }
+            },
+            {
+                "derivedStartDate": null,
+                "derivedDueDate": null,
+                "spentTime": "PT0S",
+                "laborCosts": "0,00 EUR",
+                "materialCosts": "0,00 EUR",
+                "overallCosts": "0,00 EUR",
+                "_type": "WorkPackage",
+                "id": 1524,
+                "lockVersion": 19,
+                "subject": "[DARK-12] May the force be with you",
+                "description": {
+                    "format": "markdown",
+                    "raw": "# Overview\n\n*   **Description:** A series of young-reader novels written by Jude Watson and published by Scholastic. The series follows Anakin Skywalker and his master Obi-Wan Kenobi between Star Wars: Episode I The Phantom Menace and Star Wars: Episode II Attack of the Clones.",
+                    "html": ""
+                },
+                "scheduleManually": false,
+                "startDate": null,
+                "dueDate": null,
+                "estimatedTime": null,
+                "derivedEstimatedTime": null,
+                "derivedRemainingTime": null,
+                "duration": null,
+                "ignoreNonWorkingDays": false,
+                "percentageDone": null,
+                "derivedPercentageDone": null,
+                "createdAt": "2024-03-01T11:17:12.367Z",
+                "updatedAt": "2024-10-23T10:48:10.119Z",
+                "readonly": false,
+                "customField5": null,
+                "customField13": null,
+                "customField14": null,
+                "_links": {
+                    "attachments": {
+                        "href": "/api/v3/work_packages/1524/attachments"
+                    },
+                    "addAttachment": {
+                        "href": "/api/v3/work_packages/1524/attachments",
+                        "method": "post"
+                    },
+                    "fileLinks": {
+                        "href": "/api/v3/work_packages/1524/file_links"
+                    },
+                    "addFileLink": {
+                        "href": "/api/v3/work_packages/1524/file_links",
+                        "method": "post"
+                    },
+                    "update": {
+                        "href": "/api/v3/work_packages/1524/form",
+                        "method": "post"
+                    },
+                    "schema": {
+                        "href": "/api/v3/work_packages/schemas/16-28"
+                    },
+                    "updateImmediately": {
+                        "href": "/api/v3/work_packages/1524",
+                        "method": "patch"
+                    },
+                    "delete": {
+                        "href": "/api/v3/work_packages/1524",
+                        "method": "delete"
+                    },
+                    "logTime": {
+                        "href": "/api/v3/time_entries",
+                        "title": "Log time on work package '[DARK-12] May the force be with you'"
+                    },
+                    "move": {
+                        "href": "/work_packages/1524/move/new",
+                        "type": "text/html",
+                        "title": "Move work package '[DARK-12] May the force be with you'"
+                    },
+                    "copy": {
+                        "href": "/work_packages/1524/copy",
+                        "type": "text/html",
+                        "title": "Copy work package '[DARK-12] May the force be with you'"
+                    },
+                    "pdf": {
+                        "href": "/work_packages/1524.pdf",
+                        "type": "application/pdf",
+                        "title": "Export as PDF"
+                    },
+                    "atom": {
+                        "href": "/work_packages/1524.atom",
+                        "type": "application/rss+xml",
+                        "title": "Atom feed"
+                    },
+                    "availableRelationCandidates": {
+                        "href": "/api/v3/work_packages/1524/available_relation_candidates",
+                        "title": "Potential work packages to relate to"
+                    },
+                    "customFields": {
+                        "href": "/projects/interne/settings/custom_fields",
+                        "type": "text/html",
+                        "title": "Custom fields"
+                    },
+                    "configureForm": {
+                        "href": "/types/28/edit?tab=form_configuration",
+                        "type": "text/html",
+                        "title": "Configure form"
+                    },
+                    "activities": {
+                        "href": "/api/v3/work_packages/1524/activities"
+                    },
+                    "availableWatchers": {
+                        "href": "/api/v3/work_packages/1524/available_watchers"
+                    },
+                    "relations": {
+                        "href": "/api/v3/work_packages/1524/relations"
+                    },
+                    "watchers": {
+                        "href": "/api/v3/work_packages/1524/watchers"
+                    },
+                    "addWatcher": {
+                        "href": "/api/v3/work_packages/1524/watchers",
+                        "method": "post",
+                        "payload": {
+                            "user": {
+                                "href": "/api/v3/users/{user_id}"
+                            }
+                        },
+                        "templated": true
+                    },
+                    "removeWatcher": {
+                        "href": "/api/v3/work_packages/1524/watchers/{user_id}",
+                        "method": "delete",
+                        "templated": true
+                    },
+                    "addRelation": {
+                        "href": "/api/v3/work_packages/1524/relations",
+                        "method": "post",
+                        "title": "Add relation"
+                    },
+                    "addChild": {
+                        "href": "/api/v3/projects/interne/work_packages",
+                        "method": "post",
+                        "title": "Add child of [DARK-12] May the force be with you"
+                    },
+                    "changeParent": {
+                        "href": "/api/v3/work_packages/1524",
+                        "method": "patch",
+                        "title": "Change parent of [DARK-12] May the force be with you"
+                    },
+                    "addComment": {
+                        "href": "/api/v3/work_packages/1524/activities",
+                        "method": "post",
+                        "title": "Add comment"
+                    },
+                    "previewMarkup": {
+                        "href": "/api/v3/render/markdown?context=/api/v3/work_packages/1524",
+                        "method": "post"
+                    },
+                    "timeEntries": {
+                        "href": "/api/v3/time_entries?filters=%5B%7B%22work_package_id%22%3A%7B%22operator%22%3A%22%3D%22%2C%22values%22%3A%5B%221524%22%5D%7D%7D%5D",
+                        "title": "Time entries"
+                    },
+                    "category": {
+                        "href": null
+                    },
+                    "type": {
+                        "href": "/api/v3/types/28",
+                        "title": "Étude"
+                    },
+                    "priority": {
+                        "href": "/api/v3/priorities/8",
+                        "title": "Normal"
+                    },
+                    "project": {
+                        "href": "/api/v3/projects/16",
+                        "title": "Interne"
+                    },
+                    "status": {
+                        "href": "/api/v3/statuses/3",
+                        "title": "Specified"
+                    },
+                    "author": {
+                        "href": "/api/v3/users/5",
+                        "title": "Luke Skywalker"
+                    },
+                    "responsible": {
+                        "href": "/api/v3/users/30",
+                        "title": "Luke Skywalker"
+                    },
+                    "assignee": {
+                        "href": "/api/v3/users/36",
+                        "title": "Anakin Skywalker"
+                    },
+                    "version": {
+                        "href": null
+                    },
+                    "logCosts": {
+                        "href": "/work_packages/1524/cost_entries/new",
+                        "type": "text/html",
+                        "title": "Log costs on [DARK-12] May the force be with you"
+                    },
+                    "showCosts": {
+                        "href": "/projects/16/cost_reports?fields%5B%5D=WorkPackageId&operators%5BWorkPackageId%5D=%3D&set_filter=1&values%5BWorkPackageId%5D=1524",
+                        "type": "text/html",
+                        "title": "Show cost entries"
+                    },
+                    "costsByType": {
+                        "href": "/api/v3/work_packages/1524/summarized_costs_by_type"
+                    },
+                    "github_pull_requests": {
+                        "href": "/api/v3/work_packages/1524/github_pull_requests",
+                        "title": "GitHub pull requests"
+                    },
+                    "gitlab_merge_requests": {
+                        "href": "/api/v3/work_packages/1524/gitlab_merge_requests",
+                        "title": "Gitlab merge requests"
+                    },
+                    "gitlab_issues": {
+                        "href": "/api/v3/work_packages/1524/gitlab_issues",
+                        "title": "Gitlab Issues"
+                    },
+                    "customField10": {
+                        "title": "Wordpress",
+                        "href": "/api/v3/custom_options/21"
+                    },
+                    "self": {
+                        "href": "/api/v3/work_packages/1524",
+                        "title": "[DARK-12] May the force be with you"
+                    },
+                    "watch": {
+                        "href": "/api/v3/work_packages/1524/watchers",
+                        "method": "post",
+                        "payload": {
+                            "user": {
+                                "href": "/api/v3/users/35"
+                            }
+                        }
+                    },
+                    "ancestors": [
+                        {
+                            "href": "/api/v3/work_packages/2033",
+                            "title": "[DARK-9] Revenge of the Sith"
+                        }
+                    ],
+                    "parent": {
+                        "href": "/api/v3/work_packages/2033",
+                        "title": "[DARK-9] Revenge of the Sith"
+                    },
+                    "customActions": []
+                }
+            }
+        ]
+      }
+    }
+   

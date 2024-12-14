@@ -1,0 +1,109 @@
+{
+    "_type": "Collection",
+    "total": 2,
+    "count": 2,
+    "pageSize": 20,
+    "offset": 1,
+    "_embedded": {
+        "elements": [
+            {
+                "_type": "User",
+                "id": 1335,
+                "name": "Luke Skywalker",
+                "createdAt": "2024-08-19T16:21:14.205Z",
+                "updatedAt": "2024-12-12T19:03:18.633Z",
+                "login": "luke.skywalker",
+                "admin": true,
+                "firstName": "Luke",
+                "lastName": "Skywalker",
+                "email": "luke.skywalker@yopmail.com",
+                "avatar": "",
+                "status": "active",
+                "identityUrl": null,
+                "language": "fr",
+                "_links": {
+                    "self": {
+                        "href": "/api/v3/users/1335",
+                        "title": "Luke Skywalker"
+                    },
+                    "memberships": {
+                        "href": "/api/v3/memberships?filters=%5B%7B%22principal%22%3A%7B%22operator%22%3A%22%3D%22%2C%22values%22%3A%5B%2235%22%5D%7D%7D%5D",
+                        "title": "Adhésions"
+                    },
+                    "showUser": {
+                        "href": "/users/1335",
+                        "type": "text/html"
+                    },
+                    "updateImmediately": {
+                        "href": "/api/v3/users/1335",
+                        "title": "Update luke.skywalker",
+                        "method": "patch"
+                    },
+                    "lock": {
+                        "href": "/api/v3/users/1335/lock",
+                        "title": "Set lock on luke.skywalker",
+                        "method": "post"
+                    }
+                }
+            },
+            {
+                "_type": "User",
+                "id": 1333,
+                "name": "Darth Vader",
+                "createdAt": "2022-10-04T23:20:38.887Z",
+                "updatedAt": "2024-07-22T09:16:02.268Z",
+                "login": "darth.vader",
+                "admin": true,
+                "firstName": "Darth",
+                "lastName": "Vader",
+                "email": "darth.vader@yopmail.com",
+                "avatar": "https://secure.gravatar.com/avatar/7c3046493d9ccde5dd349c56f3377761?default=404&secure=true",
+                "status": "active",
+                "identityUrl": null,
+                "language": "fr",
+                "_links": {
+                    "self": {
+                        "href": "/api/v3/users/1333",
+                        "title": "Darth Vader"
+                    },
+                    "memberships": {
+                        "href": "/api/v3/memberships?filters=%5B%7B%22principal%22%3A%7B%22operator%22%3A%22%3D%22%2C%22values%22%3A%5B%223%22%5D%7D%7D%5D",
+                        "title": "Adhésions"
+                    },
+                    "showUser": {
+                        "href": "/users/1333",
+                        "type": "text/html"
+                    },
+                    "updateImmediately": {
+                        "href": "/api/v3/users/1333",
+                        "title": "Update darth.vader",
+                        "method": "patch"
+                    },
+                    "lock": {
+                        "href": "/api/v3/users/1333/lock",
+                        "title": "Set lock on darth.vader",
+                        "method": "post"
+                    },
+                    "delete": {
+                        "href": "/api/v3/users/1333",
+                        "title": "Delete darth.vader",
+                        "method": "delete"
+                    }
+                }
+            }
+        ]
+    },
+    "_links": {
+        "self": {
+            "href": "/api/v3/users?filters=%5B%5D&offset=1&pageSize=20"
+        },
+        "jumpTo": {
+            "href": "/api/v3/users?filters=%5B%5D&offset=%7Boffset%7D&pageSize=20",
+            "templated": true
+        },
+        "changeSize": {
+            "href": "/api/v3/users?filters=%5B%5D&offset=1&pageSize=%7Bsize%7D",
+            "templated": true
+        }
+    }
+  }

@@ -1,0 +1,48 @@
+{
+    "grouped_by": null,
+    "sub_grouped_by": null,
+    "total_count": 1,
+    "next_cursor": "1000:1:0",
+    "prev_cursor": "1000:-1:1",
+    "next_page_results": false,
+    "prev_page_results": false,
+    "count": 1,
+    "total_pages": 1,
+    "total_results": 1,
+    "extra_stats": null,
+    "results": [
+        {
+            "id": "9e80e5f4-3b84-4f54-b905-a272f8ef345c",
+            "type_id": null,
+            "created_at": "2024-12-14T20:00:30.472511+01:00",
+            "updated_at": "2024-12-14T20:00:30.553445+01:00",
+            "deleted_at": null,
+            "point": null,
+            "name": "Issue sample",
+            "description_html": "<p><strong>Overview</strong>: Three years after the destruction of the Death Star, the Imperial fleet, led by Darth Vader, dispatches probe droids across the galaxy in search for the Rebel Alliance.</p><p></p>",
+            "description_binary": null,
+            "priority": "medium",
+            "start_date": null,
+            "target_date": null,
+            "sequence_id": 1,
+            "sort_order": 65535.0,
+            "completed_at": null,
+            "archived_at": null,
+            "is_draft": false,
+            "external_source": null,
+            "external_id": null,
+            "created_by": "dd9e7e87-63fa-4dc0-ae6a-21574655e2b8",
+            "updated_by": "dd9e7e87-63fa-4dc0-ae6a-21574655e2b8",
+            "project": "542203e6-59ae-4019-9748-62b451410a86",
+            "workspace": "594af11f-eecb-47ac-9d57-d797c86889d2",
+            "parent": null,
+            "state": "2dfe8bf7-9a2b-4fbe-b56c-cccd3c1fc3be",
+            "estimate_point": null,
+            "type": null,
+            "assignees": [
+                "729646b9-eb3a-490e-a36d-1363f15f2d09"
+            ],
+            "labels": []
+        }
+    ]
+}
