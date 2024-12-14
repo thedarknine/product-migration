@@ -43,18 +43,25 @@ def sync_projects(openproject_projects, plane_projects):
 if __name__ == "__main__":
     logger.debug("Starting script")
     plane_client = Plane.Client()
+
     pl_projects = plane_client.get_projects()
-    # pprint.pp(result)
-    # pprint.pp([prj["name"] for prj in pl_projects])
+    display.title("Projects")
+    display.items_list([prj["name"] for prj in pl_projects])
+
+    pl_users = plane_client.get_users()
+    display.title("Users")
+    display.items_list([usr["email"] for usr in pl_users])
 
     openproject_client = OpenProject.Client()
-    op_projects = openproject_client.get_projects()
-    display.items_list([prj["name"] for prj in op_projects])
+    # op_projects = openproject_client.get_projects()
+    # display.items_list([prj["name"] for prj in op_projects])
+    # op_users = openproject_client.get_users()
+    # display.items_list([usr["email"] for usr in op_users])
     # op_tasks = openproject_client.get_tasks()
     # pprint.pp([task["_links"]["project"]["title"] +
     # " - " + str(task["id"]) + task["subject"] for task in result])
 
-    sync_projects(op_projects, pl_projects)
+    # sync_projects(op_projects, pl_projects)
 
     # pprint.pp(result)
 
