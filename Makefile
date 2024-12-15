@@ -16,13 +16,19 @@ install:
 ## Lint code
 cs:
 #pylint --disable=trailing-whitespace main.py
-	poetry run pylint main.py sources/utilities/*.py sources/classes/*.py tests/classes/*.py tests/utilities/*.py
-	poetry run black main.py sources/utilities/*.py sources/classes/*.py tests/classes/*.py tests/utilities/*.py --diff
+	poetry run pylint main.py sources/models/*.py sources/utilities/*.py sources/classes/*.py tests/classes/*.py tests/utilities/*.py
+	poetry run black main.py sources/models/*.py sources/utilities/*.py sources/classes/*.py tests/classes/*.py tests/utilities/*.py --diff
+
+## Lint docstrings
+cs-doc:
+#numpydoc lint main.py sources/models/*.py sources/utilities/*.py sources/classes/*.py tests/classes/*.py tests/utilities/*.py
+	ruff check
 
 ## Run tests
 test:
 	poetry run pytest 
-#poetry run pytest -vv --cov=classes --cov=utilities
+# poetry run pytest -vv --cov=classes --cov=utilities
+# poetry run pytest tests/classes/openproject_test.py::test_get_all
 
 ## Run tests with coverage report
 test-report:

@@ -1,10 +1,9 @@
-"""
-Main file for migration
-"""
+"""Main file for migration."""
 
 import os
 import sys
 import pprint
+import toml
 import arrow
 from dotenv import load_dotenv
 from sources.models.mapping import Mapping
@@ -28,29 +27,40 @@ logger = logs.init_logger()
 start_date = arrow.now(os.getenv("TIMEZONE", "Europe/Paris"))
 display.start_info(start_date, "Migration")
 
+try:
+    mapping = toml.load("mapping.toml")
+    Mapping.model_validate(mapping)
+except toml.TomlDecodeError as e:
+    print(f"TOML file is invalid: {e}")
+exclude_op_projects = mapping["openproject"]["exclude_projects"]
+exclude_pl_users = mapping["plane"]["exclude_users"]
 
-def sync_projects(openproject_projects, plane_projects):
-    """Check if project name exist into new tool"""
-    for project in openproject_projects:
+
+def sync_projects(openproject_projects: list, plane_projects: list):
+    """Check if project name exist into new tool.
+
+    Args:
+        openproject_projects (list): A list of projects.
+        plane_projects (list): A list of projects.
+    """
+    for tmp_project in openproject_projects:
         exists = False
         for new_project in plane_projects:
-            if new_project["name"] == project["name"]:
+            if new_project["name"] == tmp_project["name"]:
                 exists = True
                 break
         if not exists:
-            pprint.pp("Create new one " + project["name"])
+            pprint.pp("Create new one " + tmp_project["name"])
         else:
             pprint.pp("Skip " + tmp_project["name"])
 
 
 def get_op_projects():
-    """
-    Get all projects from OpenProject.
+    """Get all projects from OpenProject.
 
-    Returns
-    -------
-    list
-        A list of projects.
+    Returns:
+        list
+            A list of projects.
     """
     openproject_client = OpenProject.Client()
     op_projects_result = openproject_client.get_all(
@@ -63,13 +73,11 @@ def get_op_projects():
 
 
 def get_pl_projects():
-    """
-    Get all projects from Plane.
+    """Get all projects from Plane.
 
-    Returns
-    -------
-    list
-        A list of projects.
+    Returns:
+        list
+            A list of projects.
     """
     plane_client = Plane.Client()
     pl_projects = plane_client.get_all(os.getenv("PLANE_PATH_PROJECTS"))
@@ -115,15 +123,13 @@ if __name__ == "__main__":
     # display.info("Total tasks : " + str(total_tasks))
     # op_projects = openproject_client.get_projects()
     # display.items_list([prj["name"] for prj in op_projects])
-    # op_users = openproject_client.get_users()
+    # op_users = openproject_client.get_all(os.getenv("OPENPROJECT_PATH_USERS"))
     # display.items_list([usr["email"] for usr in op_users])
     # op_tasks = openproject_client.get_tasks()
     # pprint.pp([task["_links"]["project"]["title"] +
-    # " - " + str(task["id"]) + task["subject"] for task in result])
+    # " - " + str(task["id"]) + task["subject"] for task in op_tasks])
 
     # sync_projects(op_projects, pl_projects)
-
-    # pprint.pp(result)
 
     # End script
     display.end_info(start_date)

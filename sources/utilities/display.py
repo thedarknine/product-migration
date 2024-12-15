@@ -1,6 +1,4 @@
-"""
-Terminal output utilitiy tools
-"""
+"""Terminal output utilitiy tools."""
 
 import os
 from datetime import timedelta
@@ -23,8 +21,7 @@ grey_style = Style(color="bright_black")
 
 # MANAGE DISPLAY LIST ------------------------------------------------------------------------------
 def items_list(listing: list) -> None:
-    """
-    Display items of a list
+    """Display items of a list.
 
     Args:
         listing (list): List of items
@@ -36,8 +33,7 @@ def items_list(listing: list) -> None:
 
 # MANAGE DISPLAY MESSAGE ---------------------------------------------------------------------------
 def alert(message: str) -> None:
-    """
-    Display alert message
+    """Display alert message.
 
     Args:
         message (str): Alert message
@@ -46,8 +42,7 @@ def alert(message: str) -> None:
 
 
 def info(message: str) -> None:
-    """
-    Display info message
+    """Display info message.
 
     Args:
         message (str): Info message
@@ -57,8 +52,7 @@ def info(message: str) -> None:
 
 
 def title(message: str) -> None:
-    """
-    Display section title
+    """Display section title.
 
     Args:
         message (str): Section title
@@ -68,14 +62,13 @@ def title(message: str) -> None:
 
 # CLEARSCREEN --------------------------------------------------------------------------------------
 def clear_screen() -> None:
-    """Reset defined parameter"""
+    """Reset defined parameter."""
     os.system("cls" if os.name == "nt" else "clear")
 
 
 # DISPLAY START ------------------------------------------------------------------------------------
 def start_info(start_date: arrow, script_title: str) -> None:
-    """
-    Display project title and start time
+    """Display project title and start time.
 
     Args:
         start_date (arrow): Date and time with start of the script
@@ -93,8 +86,7 @@ def start_info(start_date: arrow, script_title: str) -> None:
 
 # DISPLAY END --------------------------------------------------------------------------------------
 def end_info(start_date: arrow) -> None:
-    """
-    Display end time and duration
+    """Display end time and duration.
 
     Args:
         start_date (arrow): Date and time with start of the script to compute duration

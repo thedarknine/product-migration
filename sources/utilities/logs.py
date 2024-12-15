@@ -1,6 +1,4 @@
-"""
-Logging utilitiy tools
-"""
+"""Logging utilitiy tools."""
 
 import logging
 import os
@@ -10,8 +8,7 @@ from sources.utilities import display
 
 
 def init_logger(logs_path: str = os.getenv("LOGS_DIR", "logs")) -> logging.Logger:
-    """
-    Initialize log file for current date
+    """Initialize log file for current date.
 
     Args:
         logs_path (str): Path to logs directory
@@ -54,9 +51,8 @@ def init_logger(logs_path: str = os.getenv("LOGS_DIR", "logs")) -> logging.Logge
         )
 
 
-def get_logger():
-    """
-    Get logger with defined name
+def get_logger() -> logging.Logger:
+    """Get logger with defined name.
 
     Returns:
         logging.Logger: Logger object

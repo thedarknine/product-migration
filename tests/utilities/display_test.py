@@ -1,28 +1,26 @@
-"""
-Test to check display utilities
-"""
+"""Test to check display utilities."""
 
 import arrow
 from sources.utilities import display
 
 
 def test_info():
-    """Test info"""
+    """Test info."""
     display.info("Test info")
 
 
 def test_alert():
-    """Test alert"""
+    """Test alert."""
     display.alert("Test alert")
 
 
 def test_title():
-    """Test title"""
+    """Test title."""
     display.title("Test title")
 
 
 def test_items_list():
-    """Test items list"""
+    """Test items list."""
     display.items_list(["Test item 1", "Test item 2", "Test item 3"])
     display.items_list([])
     display.items_list(None)
@@ -31,15 +29,15 @@ def test_items_list():
 
 
 def test_clear_screen():
-    """Test clear screen"""
+    """Test clear screen."""
     display.clear_screen()
 
 
 def test_start_info():
-    """Test start info"""
+    """Test start info."""
     display.start_info(arrow.now(), "Test start info")
 
 
 def test_end_info():
-    """Test end info"""
+    """Test end info."""
     display.end_info(arrow.now())

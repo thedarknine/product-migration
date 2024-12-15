@@ -1,6 +1,4 @@
-"""
-Tests for the openproject module
-"""
+"""Tests for the openproject module."""
 
 import os
 import logging
@@ -21,7 +19,7 @@ json_tasks_data = json.loads(
 
 
 def test__init__():
-    """Test the __init__ method"""
+    """Test the __init__ method."""
     client = openproject.Client()
     assert client.base_url == os.getenv("OPENPROJECT_URL")
     assert client.path == ""
@@ -30,13 +28,13 @@ def test__init__():
 
 
 def test_get_endpoint():
-    """Test the get_endpoint method"""
+    """Test the get_endpoint method."""
     client = openproject.Client()
     assert client.get_endpoint() == os.getenv("OPENPROJECT_URL")
 
 
 def test_compute_projects_return_list():
-    """Test the compute_projects method"""
+    """Test the compute_projects method."""
     client = openproject.Client()
     result = client.compute_projects(json_projects_data)
     assert "_embedded" not in result
@@ -46,7 +44,11 @@ def test_compute_projects_return_list():
 
 
 def test_compute_projects_write_logging(caplog):
-    """Test the compute_projects method"""
+    """Test the compute_projects method.
+
+    Args:
+        caplog: pytest fixture to capture logs
+    """
     client = openproject.Client()
     with caplog.at_level(logging.INFO):
         client.compute_projects(json_projects_data)
@@ -54,7 +56,7 @@ def test_compute_projects_write_logging(caplog):
 
 
 def test_compute_projects_two_elements_return_two():
-    """Test the compute_projects method"""
+    """Test the compute_projects method."""
     client = openproject.Client()
     result = client.compute_projects(json_projects_data)
     assert isinstance(result, list)
@@ -63,7 +65,7 @@ def test_compute_projects_two_elements_return_two():
 
 
 def test_compute_users_return_list():
-    """Test the compute_users method"""
+    """Test the compute_users method."""
     client = openproject.Client()
     result = client.compute_users(json_users_data)
     assert "_embedded" not in result
@@ -73,7 +75,11 @@ def test_compute_users_return_list():
 
 
 def test_compute_users_write_logging(caplog):
-    """Test the compute_users method"""
+    """Test the compute_users method.
+
+    Args:
+        caplog: pytest fixture to capture logs
+    """
     client = openproject.Client()
     with caplog.at_level(logging.INFO):
         client.compute_users(json_users_data)
@@ -81,7 +87,7 @@ def test_compute_users_write_logging(caplog):
 
 
 def test_compute_users_two_elements_return_two():
-    """Test the compute_users method"""
+    """Test the compute_users method."""
     client = openproject.Client()
     result = client.compute_users(json_users_data)
     assert isinstance(result, list)

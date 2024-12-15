@@ -44,16 +44,16 @@ poetry run python [script-name].py
 
 ## OpenProject API
 
-* https://docs.openproject.org/api/v3/reference/
-* https://openproject.leviia.com/api/v3/spec.yml
-* https://www.openproject.org/docs/api/endpoints/projects/
+* <https://docs.openproject.org/api/v3/reference/>
+* <https://openproject.leviia.com/api/v3/spec.yml>
+* <https://www.openproject.org/docs/api/endpoints/projects/>
 
 ---
 
 ## Plane API
 
-* Documentation: https://developers.plane.so/api-reference/introduction
-* From source code: https://github.com/makeplane/plane/tree/preview/apiserver/plane/api/urls
+* Documentation: <https://developers.plane.so/api-reference/introduction>
+* From source code: <https://github.com/makeplane/plane/tree/preview/apiserver/plane/api/urls>
 
 ---
 
@@ -102,3 +102,23 @@ console.print("Danger, Will Robinson!", style=danger_style)
 
 * **Description**: Arrow is a Python library that offers a sensible and human-friendly approach to creating, manipulating, formatting and converting dates, times and timestamps.
 * **Homepage**: <https://arrow.readthedocs.io/>
+
+### pydantic
+
+* **Description**: Data validation using Python type hints.
+* **Homepage**: <https://github.com/pydantic/pydantic>
+
+### toml
+
+* **Description**: Python library for parsing and creating TOML.
+* **Homepage**: <https://github.com/uiri/toml>
+
+### numpydoc
+
+* **Description**: This package provides the numpydoc Sphinx extension for handling docstrings formatted according to the NumPy documentation format.
+* **Homepage**: <https://numpydoc.readthedocs.io/>
+
+### ruff
+
+* **Description**: An extremely fast Python linter and code formatter, written in Rust.
+* **Homepage**: <https://github.com/astral-sh/ruff>

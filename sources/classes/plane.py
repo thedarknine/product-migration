@@ -1,6 +1,4 @@
-"""
-Provides all methods to interact with Plane
-"""
+"""Provides all methods to interact with Plane."""
 
 import os
 from dotenv import load_dotenv
@@ -11,18 +9,17 @@ load_dotenv()
 
 
 class Client(Api.Client):
-    """Client class to interact with Plane"""
+    """Client class to interact with Plane."""
 
     def __init__(self):
-        """Client Constructor"""
+        """Client Constructor."""
         headers = {"X-API-Key": os.getenv("PLANE_API_KEY")}
         super().__init__(os.getenv("PLANE_URL"), headers=headers)
 
     def compute_projects(
         self, projects_list: dict, exclude_projects: list = None
     ) -> list:
-        """
-        Retrieves a list of projects from Plane.
+        """Retrieve a list of projects from Plane.
 
         Returns:
             list: A list of projects.
@@ -36,8 +33,7 @@ class Client(Api.Client):
         ]
 
     def compute_users(self, users_list: dict, exclude_users: list = None) -> list:
-        """
-        Retrieves a list of users from Plane.
+        """Retrieve a list of users from Plane.
 
         Args:
             users_list (dict): A list of users.

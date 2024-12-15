@@ -1,6 +1,4 @@
-"""
-Provides generic methods to interact with APIs
-"""
+"""Provides generic methods to interact with APIs."""
 
 import urllib.parse
 import httpx
@@ -11,11 +9,10 @@ load_dotenv()
 
 
 class Client:
-    """Client class to interact with APIs"""
+    """Client class to interact with APIs."""
 
     def __init__(self, base_url: str, path: str = None, headers: dict = None):
-        """
-        Client Constructor
+        """Client Constructor.
 
         Args:
             base_url (str): Base URL of the API.
@@ -30,27 +27,34 @@ class Client:
         self.__endpoint = None
 
     def get_endpoint(self) -> str:
-        """Endpoint attribute getter"""
+        """Endpoint attribute getter.
+
+        Returns:
+            str: The endpoint URL.
+        """
         if self.__endpoint is None:
             self.set_endpoint(self.path)
         return self.__endpoint
 
     def set_endpoint(self, path: str) -> None:
-        """Endpoint attribute setter"""
+        """Endpoint attribute setter.
+
+        Args:
+            path (str): Path to append to the base URL.
+        """
         if path and len(path) != 0:
             self.__endpoint = urllib.parse.urljoin(self.base_url, path)
         else:
             self.__endpoint = self.base_url
 
     def get(self, params: dict = None) -> dict:
-        """
-        Get method for API calls
+        """Get method for API calls.
 
         Args:
-            params (dict, optional): Parameters to include in the request.
+            params (dict, optional): Query parameters to include in the request. Defaults to None.
 
         Returns:
-            dict: JSON response from the API
+            dict: JSON response from the API.
         """
         logger = logs.get_logger()
         try:
@@ -68,19 +72,18 @@ class Client:
             return None
 
     def get_all(self, endpoint: str, replace: str = None, value: str = None) -> dict:
-        """
-        Retrieve a list of resources from OpenProject.
+        """Retrieve a list of resources from OpenProject.
 
-        Example of filter:
+        Example for filter:
         projects?select=total,elements/id,,elements/identifier,elements/name
 
         Args:
-            resource_type (str): Type of resources to retrieve.
-            replace (str, optional): String to replace in the endpoint. Defaults to None.
-            value (str, optional): Value to replace in the endpoint. Defaults to None.
+            endpoint (str): The endpoint to retrieve the list from.
+            replace (str, optional): The string to replace in the endpoint. Defaults to None.
+            value (str, optional): The value to replace in the endpoint. Defaults to None.
 
         Returns:
-            list: A list of resources.
+            dict: A list of resources.
         """
         logs.get_logger().info("Attempting to get from %s", endpoint)
         if replace and value:

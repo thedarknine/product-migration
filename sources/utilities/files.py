@@ -1,6 +1,4 @@
-"""
-File utility tools
-"""
+"""File utility tool."""
 
 import os
 from sources.utilities import logs
@@ -9,8 +7,7 @@ logger = logs.get_logger()
 
 
 def get_content(filename: str, filepath: str) -> str:
-    """
-    Get content of file
+    """Get content of file.
 
     Args:
         filename (str): File name

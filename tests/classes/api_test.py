@@ -1,6 +1,4 @@
-"""
-Tests for the api module
-"""
+"""Tests for the api module."""
 
 import os
 import pytest
@@ -11,7 +9,7 @@ logger = logs.get_logger()
 
 
 def test__init__():
-    """Test the __init__ method"""
+    """Test the __init__ method."""
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     assert client.base_url == "https://api.example.com"
     assert client.path == "path"
@@ -26,7 +24,7 @@ def test__init__():
 
 
 def test_get_endpoint():
-    """Test the get_endpoint method"""
+    """Test the get_endpoint method."""
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     assert client.get_endpoint() == "https://api.example.com/path"
 
@@ -41,7 +39,7 @@ def test_get_endpoint():
 
 
 def test_set_endpoint():
-    """Test the set_endpoint method"""
+    """Test the set_endpoint method."""
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     client.set_endpoint("path2")
     assert client.get_endpoint() == "https://api.example.com/path2"
@@ -57,7 +55,11 @@ def test_set_endpoint():
 
 
 def test_get(caplog):
-    """Test the get method"""
+    """Test the get method.
+
+    Args:
+        caplog: pytest fixture to capture logs
+    """
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     assert client.get() is None
     assert client.get({"param": "value"}) is None
@@ -68,7 +70,11 @@ def test_get(caplog):
 
 
 def test_get_success(httpx_mock):
-    """Test the get method"""
+    """Test the get method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+    """
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     httpx_mock.add_response(
         method="GET",
@@ -82,7 +88,12 @@ def test_get_success(httpx_mock):
 
 
 def test_get_error(httpx_mock, caplog):
-    """Test the get method"""
+    """Test the get method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+        caplog: pytest fixture to capture logs
+    """
     client = api.Client("https://api.example.com", "path")
 
     httpx_mock.add_response(401, json={"error": "Unauthorized"})
@@ -103,7 +114,11 @@ def test_get_error(httpx_mock, caplog):
 
 
 def test_get_all_projects(httpx_mock):
-    """Test the get_all method"""
+    """Test the get_all method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+    """
     httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     response = client.get_all(os.getenv("OPENPROJECT_PATH_PROJECTS"))
@@ -112,7 +127,11 @@ def test_get_all_projects(httpx_mock):
 
 
 def test_get_all_users(httpx_mock):
-    """Test the get_all method"""
+    """Test the get_all method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+    """
     httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     response = client.get_all(os.getenv("OPENPROJECT_PATH_USERS"))
@@ -121,7 +140,11 @@ def test_get_all_users(httpx_mock):
 
 
 def test_get_all_projects_with_replace(httpx_mock):
-    """Test the get_all method"""
+    """Test the get_all method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+    """
     httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     response = client.get_all(
@@ -132,7 +155,11 @@ def test_get_all_projects_with_replace(httpx_mock):
 
 
 def test_get_all_tasks_with_replace(httpx_mock):
-    """Test the get_all method"""
+    """Test the get_all method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+    """
     httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     response = client.get_all(os.getenv("OPENPROJECT_PATH_TASKS"), "{PROJECT_ID}", "1")
@@ -141,7 +168,7 @@ def test_get_all_tasks_with_replace(httpx_mock):
 
 
 def test_get_all_no_endpoint_returns_empty_list():
-    """Test the get_all method"""
+    """Test the get_all method."""
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     response = client.get_all(None)
     assert response is None
