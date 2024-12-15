@@ -1,0 +1,12 @@
+[openproject]
+exclude_projects = [
+    "Leviia",
+    "Administration Système",
+    "Développement",
+    "Certification ISO 27001 & HDS"
+]
+
+[plane]
+exclude_users = [
+    "admin-sys@leviia.com"
+]
