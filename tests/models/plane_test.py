@@ -61,29 +61,26 @@ def test_project_empty_value():
 def test_user_valid_data():
     """Test the user model."""
     user = User(
-        id=1,
-        name="test",
+        id="62492acb-203d-4bdb-82e3-85fbd5cf2cc9",
+        first_name="FirstName",
+        last_name="LastName",
         email="test@mail.com",
-        created_at=past_datetime,
-        updated_at=past_datetime,
     )
     assert isinstance(user, User)
-    assert user.id == 1
-    assert user.name == "test"
+    assert user.id == "62492acb-203d-4bdb-82e3-85fbd5cf2cc9"
+    assert user.first_name == "FirstName"
+    assert user.last_name == "LastName"
     assert user.email == "test@mail.com"
-    assert user.created_at == past_datetime
-    assert user.updated_at == past_datetime
 
 
 def test_user_invalid_email():
     """Test the user model."""
     with pytest.raises(ValidationError) as exc_info:
         User(
-            id=1,
-            name="test",
+            id="62492acb-203d-4bdb-82e3-85fbd5cf2cc9",
+            first_name="FirstName",
+            last_name="LastName",
             email="test",
-            created_at=past_datetime,
-            updated_at=past_datetime,
         )
     assert (
         exc_info.value.errors()[0]["msg"]
@@ -91,17 +88,17 @@ def test_user_invalid_email():
     )
 
 
-def test_user_invalid_dates():
+def test_user_hash():
     """Test the user model."""
-    with pytest.raises(ValidationError) as exc_info:
-        User(
-            id=1,
-            name="test",
-            email="test@mail.com",
-            created_at=future_datetime,
-            updated_at=future_datetime,
-        )
-    assert exc_info.value.errors()[0]["msg"] == "Input should be in the past"
+    user = User(
+        id="62492acb-203d-4bdb-82e3-85fbd5cf2cc9",
+        first_name="FirstName",
+        last_name="LastName",
+        email="test@mail.com",
+    )
+    assert isinstance(hash(user), int)
+    assert hash(user) == hash("62492acb-203d-4bdb-82e3-85fbd5cf2cc9")
+    assert hash(user) != hash("62492acb-203d-4bdb-82e3-85fbd5cf2cc8")
 
 
 def test_task_valid_data():

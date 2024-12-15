@@ -37,7 +37,7 @@ class Client(Api.Client):
         ]
 
     def compute_users(self, users_list: dict, exclude_users: list = None) -> list:
-        """Retrieve a list of users from Plane.
+        """Retrieve a list of users from OpenProject.
 
         Returns:
             list: A list of users.

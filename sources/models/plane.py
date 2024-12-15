@@ -15,11 +15,13 @@ class Project(BaseModel):
 class User(BaseModel):
     """Plane user model to handle user object."""
 
-    id: int
-    name: str
+    id: str
+    first_name: str
+    last_name: str
     email: EmailStr
-    created_at: PastDatetime
-    updated_at: PastDatetime
+
+    def __hash__(self) -> int:
+        return self.id.__hash__()
 
 
 class Task(BaseModel):
