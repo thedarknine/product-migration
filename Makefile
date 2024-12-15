@@ -26,7 +26,7 @@ test:
 
 ## Run tests with coverage report
 test-report:
-	poetry run pytest -v --cov=classes --cov=utilities --cov-report=html:./.tmp/coverage
+	poetry run pytest -v --cov=sources/classes --cov=sources/utilities --cov-report=html:./.tmp/coverage
 
 
 ## FORMATTER ==========================================================

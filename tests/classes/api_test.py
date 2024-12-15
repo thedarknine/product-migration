@@ -2,6 +2,7 @@
 Tests for the api module
 """
 
+import os
 import pytest
 from sources.classes import api
 from sources.utilities import logs
@@ -99,3 +100,48 @@ def test_get_error(httpx_mock, caplog):
 
     httpx_mock.add_response(500, json={"error": "Internal Server Error"})
     assert client.get() is None
+
+
+def test_get_all_projects(httpx_mock):
+    """Test the get_all method"""
+    httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
+    client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
+    response = client.get_all(os.getenv("OPENPROJECT_PATH_PROJECTS"))
+    assert isinstance(response, dict)
+    assert len(response) == 1
+
+
+def test_get_all_users(httpx_mock):
+    """Test the get_all method"""
+    httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
+    client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
+    response = client.get_all(os.getenv("OPENPROJECT_PATH_USERS"))
+    assert isinstance(response, dict)
+    assert len(response) == 1
+
+
+def test_get_all_projects_with_replace(httpx_mock):
+    """Test the get_all method"""
+    httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
+    client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
+    response = client.get_all(
+        os.getenv("OPENPROJECT_PATH_PROJECTS"), "{PROJECT_ID}", "1"
+    )
+    assert isinstance(response, dict)
+    assert len(response) == 1
+
+
+def test_get_all_tasks_with_replace(httpx_mock):
+    """Test the get_all method"""
+    httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
+    client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
+    response = client.get_all(os.getenv("OPENPROJECT_PATH_TASKS"), "{PROJECT_ID}", "1")
+    assert isinstance(response, dict)
+    assert len(response) == 1
+
+
+def test_get_all_no_endpoint_returns_empty_list():
+    """Test the get_all method"""
+    client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
+    response = client.get_all(None)
+    assert response is None

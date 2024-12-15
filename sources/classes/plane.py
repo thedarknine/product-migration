@@ -18,38 +18,35 @@ class Client(Api.Client):
         headers = {"X-API-Key": os.getenv("PLANE_API_KEY")}
         super().__init__(os.getenv("PLANE_URL"), headers=headers)
 
-    def get_projects(self) -> list:
+    def compute_projects(
+        self, projects_list: dict, exclude_projects: list = None
+    ) -> list:
         """
         Retrieves a list of projects from Plane.
 
         Returns:
             list: A list of projects.
         """
-        logs.get_logger().info("Attempting to get projects from Plane")
-        self.set_endpoint(os.getenv("PLANE_PATH_PROJECTS"))
-        return super().get()["results"]
+        logs.get_logger().info("Compute projects from Plane")
+        exclude_projects = [] if exclude_projects is None else exclude_projects
+        return [
+            project
+            for project in projects_list["results"]
+            if project["name"] not in exclude_projects
+        ]
 
-    def get_users(self) -> list:
+    def compute_users(self, users_list: dict, exclude_users: list = None) -> list:
         """
         Retrieves a list of users from Plane.
 
-        This method first retrieves a list of projects, then for each project,
-        it retrieves the list of members.
-        The members are then added to the list of users.
+        Args:
+            users_list (dict): A list of users.
+            exclude_users (list): A list of users to exclude by email.
 
         Returns:
             list: A list of users.
         """
-        logs.get_logger().info("Attempting to get users from Plane")
-        users_list = []
-        # First, get projects
-        projects_list = self.get_projects()
-        for project in projects_list or []:
-            self.set_endpoint(
-                str.replace(
-                    os.getenv("PLANE_PATH_USERS"), "{PROJECT_ID}", project["id"]
-                )
-            )
-            members_list = super().get()
-            users_list.extend([user for user in members_list if user not in users_list])
-        return users_list
+        logs.get_logger().info("Compute users from Plane")
+        exclude_users = [] if exclude_users is None else exclude_users
+        computed_list = users_list["results"] if "results" in users_list else users_list
+        return [user for user in computed_list if user["email"] not in exclude_users]

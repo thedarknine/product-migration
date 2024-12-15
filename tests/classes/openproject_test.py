@@ -4,7 +4,20 @@ Tests for the openproject module
 
 import os
 import logging
+import json
 from sources.classes import openproject
+from sources.utilities import files
+
+# Get JSON results
+json_projects_data = json.loads(
+    files.get_content("openproject_projects.json", "tests/samples")
+)
+json_users_data = json.loads(
+    files.get_content("openproject_users.json", "tests/samples")
+)
+json_tasks_data = json.loads(
+    files.get_content("openproject_workpackages.json", "tests/samples")
+)
 
 
 def test__init__():
@@ -22,89 +35,91 @@ def test_get_endpoint():
     assert client.get_endpoint() == os.getenv("OPENPROJECT_URL")
 
 
-def test_get_projects_return_list(httpx_mock):
-    """Test the get_projects method"""
-    httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
+def test_compute_projects_return_list():
+    """Test the compute_projects method"""
     client = openproject.Client()
-    response = client.get_projects()
-    assert response == []
-    assert isinstance(response, list)
+    result = client.compute_projects(json_projects_data)
+    assert "_embedded" not in result
+    assert "elements" not in result
+    assert result == json_projects_data["_embedded"]["elements"]
+    assert isinstance(result, list)
 
 
-def test_get_two_projects_return_two_elements():
-    """Test the get_projects method"""
-    client = openproject.Client()
-    response = client.get_projects()
-    # Return only result into elements subarray
-    assert "_embedded" not in response
-    assert "elements" not in response
-    assert isinstance(response, list)
-    assert len(response) == 2
-
-
-def test_get_projects_write_logging(httpx_mock, caplog):
-    """Test the get_projects method"""
-    httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
+def test_compute_projects_write_logging(caplog):
+    """Test the compute_projects method"""
     client = openproject.Client()
     with caplog.at_level(logging.INFO):
-        client.get_projects()
-        assert "Attempting to get projects from OpenProject" in caplog.text
+        client.compute_projects(json_projects_data)
+        assert "Compute projects from OpenProject" in caplog.text
 
 
-def test_get_users_return_list(httpx_mock):
-    """Test the get_users method"""
-    httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
+def test_compute_projects_two_elements_return_two():
+    """Test the compute_projects method"""
     client = openproject.Client()
-    response = client.get_users()
-    assert not response
-    assert isinstance(response, list)
+    result = client.compute_projects(json_projects_data)
+    assert isinstance(result, list)
+    assert len(result) == 2
+    assert len(result) == len(json_projects_data["_embedded"]["elements"])
 
 
-def test_get_two_users_return_two_elements():
-    """Test the get_users method"""
+def test_compute_users_return_list():
+    """Test the compute_users method"""
     client = openproject.Client()
-    response = client.get_users()
-    # Return only result into elements subarray
-    print(response)
-    assert "_embedded" not in response
-    assert "elements" not in response
-    assert isinstance(response, list)
-    assert len(response) == 2
+    result = client.compute_users(json_users_data)
+    assert "_embedded" not in result
+    assert "elements" not in result
+    assert result == json_users_data["_embedded"]["elements"]
+    assert isinstance(result, list)
 
 
-def test_get_users_write_logging(httpx_mock, caplog):
-    """Test the get_users method"""
-    httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
+def test_compute_users_write_logging(caplog):
+    """Test the compute_users method"""
     client = openproject.Client()
     with caplog.at_level(logging.INFO):
-        client.get_users()
-        assert "Attempting to get users from OpenProject" in caplog.text
+        client.compute_users(json_users_data)
+        assert "Compute users from OpenProject" in caplog.text
 
 
-def test_get_tasks_return_list(httpx_mock):
-    """Test the get_tasks method"""
-    httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
+def test_compute_users_two_elements_return_two():
+    """Test the compute_users method"""
     client = openproject.Client()
-    response = client.get_tasks()
-    assert not response
-    assert isinstance(response, list)
+    result = client.compute_users(json_users_data)
+    assert isinstance(result, list)
+    assert len(result) == 2
+    assert len(result) == len(json_users_data["_embedded"]["elements"])
 
 
-def test_get_four_tasks_return_four_elements():
-    """Test the get_tasks method"""
-    client = openproject.Client()
-    response = client.get_tasks()
-    # Return only result into elements subarray
-    assert "_embedded" not in response
-    assert "elements" not in response
-    assert isinstance(response, list)
-    assert len(response) == 4
+# def test_compute_tasks_return_list():
+#     """Test the compute_tasks method"""
+#     client = openproject.Client()
+#     result = client.compute_tasks(json_tasks_data)
+#     assert "_embedded" not in result
+#     assert "elements" not in result
+#     assert result == json_tasks_data["_embedded"]["elements"]
+#     assert isinstance(result, list)
 
 
-def test_get_tasks_write_logging(httpx_mock, caplog):
-    """Test the get_tasks method"""
-    httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
-    client = openproject.Client()
-    with caplog.at_level(logging.INFO):
-        client.get_tasks()
-        assert "Attempting to get tasks from OpenProject" in caplog.text
+# def test_compute_tasks_write_logging(caplog):
+#     """Test the compute_tasks method"""
+#     client = openproject.Client()
+#     with caplog.at_level(logging.INFO):
+#         client.compute_tasks(json_tasks_data)
+#         assert "Compute tasks from OpenProject" in caplog.text
+
+
+# def test_compute_tasks_two_elements_return_two():
+#     """Test the compute_tasks method"""
+#     client = openproject.Client()
+#     result = client.compute_tasks(json_tasks_data)
+#     assert isinstance(result, list)
+#     assert len(result) == 2
+#     assert len(result) == len(json_tasks_data["_embedded"]["elements"])
+
+
+# def test_get_tasks_write_logging(httpx_mock, caplog):
+#     """Test the get_tasks method"""
+#     httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
+#     client = openproject.Client()
+#     with caplog.at_level(logging.INFO):
+#         client.get_all(os.getenv("OPENPROJECT_PATH_TASKS"))
+#         assert "Attempting to get tasks from OpenProject" in caplog.text
