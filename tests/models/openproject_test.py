@@ -98,12 +98,26 @@ def test_user_invalid_email():
     )
 
 
+def test_user_hash():
+    """Test the user model."""
+    user = User(
+        id=1,
+        name="test",
+        email="test@mail.com",
+        createdAt=past_datetime,
+        updatedAt=past_datetime,
+    )
+    assert isinstance(hash(user), int)
+    assert hash(user) == hash(1)
+    assert hash(user) != hash(2)
+
+
 def test_task_valid_data():
     """Test the task model."""
-    task = Task(id=1, name="test", createdAt=past_datetime, updatedAt=past_datetime)
+    task = Task(id=1, subject="test", createdAt=past_datetime, updatedAt=past_datetime)
     assert isinstance(task, Task)
     assert task.id == 1
-    assert task.name == "test"
+    assert task.subject == "test"
     assert task.createdAt == past_datetime
     assert task.updatedAt == past_datetime
 
@@ -111,5 +125,5 @@ def test_task_valid_data():
 def test_task_invalid_dates():
     """Test the task model."""
     with pytest.raises(ValidationError) as exc_info:
-        Task(id=1, name="test", createdAt=future_datetime, updatedAt=future_datetime)
+        Task(id=1, subject="test", createdAt=future_datetime, updatedAt=future_datetime)
     assert exc_info.value.errors()[0]["msg"] == "Input should be in the past"

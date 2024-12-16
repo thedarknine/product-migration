@@ -2,6 +2,7 @@
 
 import os
 from dotenv import load_dotenv
+from sources.models.openproject import Project as OPProject, User as OPUser, Task as OPTask
 from sources.classes import api as Api
 from sources.utilities import logs
 
@@ -104,23 +105,54 @@ class Client(Api.Client):
             if user["email"] not in exclude_users
         ]
 
-    # Closed tickets : [{ "status_id": { "operator": "c" }}]
-    # Open tickets : [{ "status_id": { "operator": "o" }}]
-    def get_tasks_by_projectid(self, project_id: int) -> list:
-        """Retrieve a list of tasks from Plane.
+    def get_all_tasks_by_projectid(self, project_id: str) -> list:
+        """Get all tasks from OpenProject.
+
+        Args:
+            project_id (str): The project id.
+
+        Returns:
+            list
+                A list of tasks.
+        """
+        # Retrieve all users with pagination
+        remaining = loop = 1
+        tasks_list = []
+        while remaining >= 0:
+            tasks_result = super().get_all(
+                os.getenv("OPENPROJECT_PATH_TASKS"),
+                "{PROJECT_ID}",
+                project_id,
+                params="&pageSize="
+                + str(super().get_default_size())
+                + "&offset="
+                + str(loop),
+            )
+            tmp_tasks_list = self.compute_tasks(tasks_result)
+            remaining = self.get_total(tasks_result) - (
+                loop * int(super().get_default_size())
+            )
+            tasks_list = list(
+                set(
+                    tasks_list
+                    + [OPTask.model_validate(task) for task in tmp_tasks_list]
+                )
+            )
+            loop += 1
+        return tasks_list
+
+    def compute_tasks(self, tasks_list: dict) -> list:
+        """Retrieve a list of tasks from OpenProject.
+
+        Examples:
+            - Closed tickets : [{ "status_id": { "operator": "c" }}]
+            - Open tickets : [{ "status_id": { "operator": "o" }}]
 
         Returns:
             list: A list of tasks.
         """
         logs.get_logger().info("Attempting to get tasks from OpenProject")
         all_tasks = []
-        self.set_endpoint(
-            str.replace(
-                os.getenv("OPENPROJECT_PATH_TASKS"),
-                "{PROJECT_ID}",
-                str(project_id),
-            )
-        )
         # Retrieve paginated results
         remaining = loop = 1
         while remaining >= 0:

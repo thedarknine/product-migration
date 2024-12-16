@@ -79,25 +79,39 @@ if __name__ == "__main__":
     #     ]
     # )
 
-    display.title("Plane - Projects")
-    display.items_list(
-        [
-            str(project.id) + " - " + project.name
-            for project in plane_client.get_all_projects()
-        ]
-    )
-
-    display.title("Plane - Users")
-    users_list = []
-    for project in plane_client.get_all_projects():
-        # Merge lists
-        users_list = list(
+    display.title("OpenProject - Tasks")
+    tasks_list = []
+    for project in openproject_client.get_all_projects(exclude_op_projects):
+        display.info("Project: " + project.name)
+        tasks_list = []
+        tasks_list = list(
             set(
-                users_list
-                + plane_client.get_all_users_by_project(project.id, exclude_pl_users)
+                tasks_list
+                + openproject_client.get_all_tasks_by_projectid(str(project.id))
             )
         )
-    display.items_list([str(user.id) + " - " + user.email for user in users_list])
+        display.items_list([task.subject for task in tasks_list])
+        display.info("=> Total tasks: " + str(len(tasks_list)) + "\n")
+
+    # display.title("Plane - Projects")
+    # display.items_list(
+    #     [
+    #         str(project.id) + " - " + project.name
+    #         for project in plane_client.get_all_projects()
+    #     ]
+    # )
+
+    # display.title("Plane - Users")
+    # users_list = []
+    # for project in plane_client.get_all_projects():
+    #     # Merge lists
+    #     users_list = list(
+    #         set(
+    #             users_list
+    #             + plane_client.get_all_users_by_project(project.id, exclude_pl_users)
+    #         )
+    #     )
+    # display.items_list([str(user.id) + " - " + user.email for user in users_list])
 
     # display.items_list([project["name"] for project in op_projects_list])
     # total_tasks = 0
