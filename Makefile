@@ -13,6 +13,9 @@ run:
 install:
 	poetry install
 
+## Check all before commit
+pre-commit: cs cs-doc test-report
+
 ## Lint code
 cs:
 #pylint --disable=trailing-whitespace main.py
@@ -22,7 +25,7 @@ cs:
 ## Lint docstrings
 cs-doc:
 #	numpydoc lint main.py sources/models/*.py sources/utilities/*.py sources/classes/*.py tests/classes/*.py tests/utilities/*.py
-	ruff check
+	poetry run ruff check
 
 ## Run tests
 test:

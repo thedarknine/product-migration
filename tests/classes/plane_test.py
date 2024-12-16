@@ -29,6 +29,12 @@ def test_get_endpoint():
     assert client.get_endpoint() == os.getenv("PLANE_URL")
 
 
+def test_get_total():
+    """Test the get_total method."""
+    client = plane.Client()
+    assert client.get_total(json_projects_data) == 5
+
+
 def test_get_all_projects(httpx_mock):
     """Test the get_all_projects method.
 
@@ -113,3 +119,46 @@ def test_compute_users_two_elements_return_two():
     assert isinstance(result, list)
     assert len(result) == 2
     assert len(result) == len(json_users_data)
+
+
+def test_get_all_tasks_by_project(httpx_mock):
+    """Test the get_all_tasks_by_project method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+    """
+    httpx_mock.add_response(200, json=json_tasks_data)
+    client = plane.Client()
+    response = client.get_all_tasks_by_project("project_id")
+    assert isinstance(response, list)
+    assert len(response) == 1
+
+
+def test_compute_tasks_return_list():
+    """Test the compute_tasks method."""
+    client = plane.Client()
+    result = client.compute_tasks(json_tasks_data)
+    assert "results" not in result
+    assert result == json_tasks_data["results"]
+    assert isinstance(result, list)
+
+
+def test_compute_tasks_write_logging(caplog):
+    """Test the compute_tasks method.
+
+    Args:
+        caplog: pytest fixture to capture logs
+    """
+    client = plane.Client()
+    with caplog.at_level(logging.INFO):
+        client.compute_tasks(json_tasks_data)
+        assert "Compute tasks from Plane" in caplog.text
+
+
+def test_compute_tasks_one_elements_return_one():
+    """Test the compute_tasks method."""
+    client = plane.Client()
+    result = client.compute_tasks(json_tasks_data)
+    assert isinstance(result, list)
+    assert len(result) == 1
+    assert len(result) == len(json_tasks_data["results"])

@@ -36,3 +36,11 @@ class Task(BaseModel):
     name: str
     created_at: PastDatetime
     updated_at: PastDatetime
+
+    def __hash__(self) -> int:
+        """Hash function.
+
+        Returns:
+            int: Hash value.
+        """
+        return self.id.__hash__()

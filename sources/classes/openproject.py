@@ -2,7 +2,11 @@
 
 import os
 from dotenv import load_dotenv
-from sources.models.openproject import Project as OPProject, User as OPUser, Task as OPTask
+from sources.models.openproject import (
+    Project as OPProject,
+    User as OPUser,
+    Task as OPTask,
+)
 from sources.classes import api as Api
 from sources.utilities import logs
 
@@ -105,8 +109,8 @@ class Client(Api.Client):
             if user["email"] not in exclude_users
         ]
 
-    def get_all_tasks_by_projectid(self, project_id: str) -> list:
-        """Get all tasks from OpenProject.
+    def get_all_tasks_by_project(self, project_id: str) -> list:
+        """Get all tasks from OpenProject by project.
 
         Args:
             project_id (str): The project id.
@@ -115,7 +119,7 @@ class Client(Api.Client):
             list
                 A list of tasks.
         """
-        # Retrieve all users with pagination
+        # Retrieve all tasks with pagination
         remaining = loop = 1
         tasks_list = []
         while remaining >= 0:
@@ -128,6 +132,8 @@ class Client(Api.Client):
                 + "&offset="
                 + str(loop),
             )
+            if tasks_result is None:
+                break
             tmp_tasks_list = self.compute_tasks(tasks_result)
             remaining = self.get_total(tasks_result) - (
                 loop * int(super().get_default_size())
@@ -151,21 +157,9 @@ class Client(Api.Client):
         Returns:
             list: A list of tasks.
         """
-        logs.get_logger().info("Attempting to get tasks from OpenProject")
-        all_tasks = []
-        # Retrieve paginated results
-        remaining = loop = 1
-        while remaining >= 0:
-            tasks_list = super().get(
-                'filter=[{"status_id":{"operator":"c"}}]&offset='
-                + str(loop)
-                + "&pageSize=10"
-            )
-            all_tasks.extend(
-                [task for task in tasks_list["_embedded"]["elements"] if tasks_list]
-            )
-            if "offset" not in tasks_list:
-                break
-            remaining = tasks_list["total"] - (tasks_list["offset"] * 10)
-            loop += 1
-        return all_tasks
+        logs.get_logger().info("Compute tasks from OpenProject")
+        return [
+            task
+            for task in tasks_list["_embedded"]["elements"]
+            if task["subject"] not in tasks_list
+        ]

@@ -127,3 +127,11 @@ def test_task_invalid_dates():
     with pytest.raises(ValidationError) as exc_info:
         Task(id=1, subject="test", createdAt=future_datetime, updatedAt=future_datetime)
     assert exc_info.value.errors()[0]["msg"] == "Input should be in the past"
+
+
+def test_task_hash():
+    """Test the user model."""
+    task = Task(id=1, subject="test", createdAt=past_datetime, updatedAt=past_datetime)
+    assert isinstance(hash(task), int)
+    assert hash(task) == hash(1)
+    assert hash(task) != hash(2)

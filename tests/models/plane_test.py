@@ -103,9 +103,14 @@ def test_user_hash():
 
 def test_task_valid_data():
     """Test the task model."""
-    task = Task(id=1, name="test", created_at=past_datetime, updated_at=past_datetime)
+    task = Task(
+        id="62492acb-203d-4bdb-82e3-85fbd5cf2cc9",
+        name="test",
+        created_at=past_datetime,
+        updated_at=past_datetime,
+    )
     assert isinstance(task, Task)
-    assert task.id == 1
+    assert task.id == "62492acb-203d-4bdb-82e3-85fbd5cf2cc9"
     assert task.name == "test"
     assert task.created_at == past_datetime
     assert task.updated_at == past_datetime
@@ -114,5 +119,23 @@ def test_task_valid_data():
 def test_task_invalid_dates():
     """Test the task model."""
     with pytest.raises(ValidationError) as exc_info:
-        Task(id=1, name="test", created_at=future_datetime, updated_at=future_datetime)
+        Task(
+            id="62492acb-203d-4bdb-82e3-85fbd5cf2cc9",
+            name="test",
+            created_at=future_datetime,
+            updated_at=future_datetime,
+        )
     assert exc_info.value.errors()[0]["msg"] == "Input should be in the past"
+
+
+def test_task_hash():
+    """Test the task model."""
+    task = Task(
+        id="62492acb-203d-4bdb-82e3-85fbd5cf2cc9",
+        name="test",
+        created_at=past_datetime,
+        updated_at=past_datetime,
+    )
+    assert isinstance(hash(task), int)
+    assert hash(task) == hash("62492acb-203d-4bdb-82e3-85fbd5cf2cc9")
+    assert hash(task) != hash("62492acb-203d-4bdb-82e3-85fbd5cf2cc8")

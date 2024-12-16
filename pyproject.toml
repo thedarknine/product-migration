@@ -30,7 +30,7 @@ email-validator = "^2.2.0"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-v -ra -q"
-#log_cli = true
+log_cli = true
 minversion = "6.0"
 # Specify a custom directory for pytest cache
 cache_dir = "./.tmp/.pytest_cache"

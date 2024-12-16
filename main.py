@@ -79,19 +79,19 @@ if __name__ == "__main__":
     #     ]
     # )
 
-    display.title("OpenProject - Tasks")
-    tasks_list = []
-    for project in openproject_client.get_all_projects(exclude_op_projects):
-        display.info("Project: " + project.name)
-        tasks_list = []
-        tasks_list = list(
-            set(
-                tasks_list
-                + openproject_client.get_all_tasks_by_projectid(str(project.id))
-            )
-        )
-        display.items_list([task.subject for task in tasks_list])
-        display.info("=> Total tasks: " + str(len(tasks_list)) + "\n")
+    # display.title("OpenProject - Tasks")
+    # tasks_list = []
+    # for project in openproject_client.get_all_projects(exclude_op_projects):
+    #     display.info("Project: " + project.name)
+    #     tasks_list = []
+    #     tasks_list = list(
+    #         set(
+    #             tasks_list
+    #             + openproject_client.get_all_tasks_by_project(str(project.id))
+    #         )
+    #     )
+    #     display.items_list([task.subject for task in tasks_list])
+    #     display.info("=> Total tasks: " + str(len(tasks_list)) + "\n")
 
     # display.title("Plane - Projects")
     # display.items_list(
@@ -112,6 +112,15 @@ if __name__ == "__main__":
     #         )
     #     )
     # display.items_list([str(user.id) + " - " + user.email for user in users_list])
+
+    display.title("Plane - Tasks")
+    tasks_list = []
+    for project in plane_client.get_all_projects():
+        display.info("Project: " + project.name)
+        tasks_list = list(
+            set(tasks_list + plane_client.get_all_tasks_by_project(project.id))
+        )
+    display.items_list([task.name for task in tasks_list])
 
     # display.items_list([project["name"] for project in op_projects_list])
     # total_tasks = 0
