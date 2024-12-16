@@ -2,6 +2,9 @@
 
 Migrate from OpenProject to Plane using API.
 
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/httpx)
+[![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
+
 ## How to
 
 ### Install

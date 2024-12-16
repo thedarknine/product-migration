@@ -7,20 +7,24 @@
     "_embedded": {
       "elements": [
         {
-          "_hint": "Project resource shortened for brevity",
+          "_type": "Project",
           "id": 1,
           "identifier": "initialproject",
           "name": "DeathStar construction",
           "active": true,
-          "public": true
+          "public": true,
+          "createdAt": "2024-12-06T16:16:11.753Z",
+          "updatedAt": "2024-12-06T16:16:50.177Z"
         },
         {
-          "_hint": "Project resource shortened for brevity",
+          "_type": "Project",
           "id": 2,
           "identifier": "mysecret",
           "name": "Palpatine's secret plan",
           "active": true,
-          "public": false
+          "public": false,
+          "createdAt": "2024-12-06T16:16:11.753Z",
+          "updatedAt": "2024-12-06T16:16:50.177Z"
         }
       ]
     },
