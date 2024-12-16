@@ -22,6 +22,14 @@ class User(BaseModel):
     createdAt: PastDatetime
     updatedAt: PastDatetime
 
+    def __hash__(self) -> int:
+        """Hash function.
+
+        Returns:
+            int: Hash value.
+        """
+        return self.id.__hash__()
+
 
 class Task(BaseModel):
     """OpenProject task model to handle task object."""

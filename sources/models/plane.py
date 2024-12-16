@@ -21,13 +21,18 @@ class User(BaseModel):
     email: EmailStr
 
     def __hash__(self) -> int:
+        """Hash function.
+
+        Returns:
+            int: Hash value.
+        """
         return self.id.__hash__()
 
 
 class Task(BaseModel):
     """Plane task model to handle task object."""
 
-    id: int
+    id: str
     name: str
     created_at: PastDatetime
     updated_at: PastDatetime

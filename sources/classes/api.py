@@ -1,5 +1,6 @@
 """Provides generic methods to interact with APIs."""
 
+import os
 import urllib.parse
 import httpx
 from dotenv import load_dotenv
@@ -24,6 +25,7 @@ class Client:
         self.base_url = base_url
         self.path = path or ""
         self.headers = headers or {}
+        self.__default_size = os.getenv("API_RESULTS_SIZE", "10")
         self.__endpoint = None
 
     def get_endpoint(self) -> str:
@@ -46,6 +48,14 @@ class Client:
             self.__endpoint = urllib.parse.urljoin(self.base_url, path)
         else:
             self.__endpoint = self.base_url
+
+    def get_default_size(self) -> int:
+        """Default size getter.
+
+        Returns:
+            int: The default size.
+        """
+        return self.__default_size
 
     def get(self, params: dict = None) -> dict:
         """Get method for API calls.
@@ -71,7 +81,9 @@ class Client:
             print(f"An error occurred: {e}")
             return None
 
-    def get_all(self, endpoint: str, replace: str = None, value: str = None) -> dict:
+    def get_all(
+        self, endpoint: str, replace: str = None, value: str = None, params: dict = None
+    ) -> dict:
         """Retrieve a list of resources from OpenProject.
 
         Example for filter:
@@ -81,11 +93,14 @@ class Client:
             endpoint (str): The endpoint to retrieve the list from.
             replace (str, optional): The string to replace in the endpoint. Defaults to None.
             value (str, optional): The value to replace in the endpoint. Defaults to None.
+            params (dict, optional): Query parameters to include in the request. Defaults to None.
 
         Returns:
             dict: A list of resources.
         """
-        logs.get_logger().info("Attempting to get from %s", endpoint)
+        logs.get_logger().info(
+            "Attempting to get from %s with params: %s", endpoint, params
+        )
         if replace and value:
             self.set_endpoint(
                 str.replace(
@@ -97,4 +112,4 @@ class Client:
         else:
             self.set_endpoint(endpoint)
 
-        return self.get()
+        return self.get(params)

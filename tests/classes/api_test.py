@@ -23,6 +23,14 @@ def test__init__():
         api.Client(None)
 
 
+def test_get_default_size():
+    """Test the get_default_size method."""
+    client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
+    assert isinstance(client.get_default_size(), str)
+    assert client.get_default_size() == "10"
+    assert client.get_default_size() != "20"
+
+
 def test_get_endpoint():
     """Test the get_endpoint method."""
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})

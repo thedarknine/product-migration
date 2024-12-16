@@ -29,6 +29,19 @@ def test_get_endpoint():
     assert client.get_endpoint() == os.getenv("PLANE_URL")
 
 
+def test_get_all_projects(httpx_mock):
+    """Test the get_all_projects method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+    """
+    httpx_mock.add_response(200, json=json_projects_data)
+    client = plane.Client()
+    response = client.get_all_projects()
+    assert isinstance(response, list)
+    assert len(response) == 2
+
+
 def test_compute_projects_return_list():
     """Test the compute_projects method."""
     client = plane.Client()
@@ -59,12 +72,24 @@ def test_compute_projects_two_elements_return_two():
     assert len(result) == len(json_projects_data["results"])
 
 
+def test_get_all_users_by_project(httpx_mock):
+    """Test the get_all_users_by_project method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+    """
+    httpx_mock.add_response(200, json=json_users_data)
+    client = plane.Client()
+    response = client.get_all_users_by_project("project_id")
+    assert isinstance(response, list)
+    assert len(response) == 2
+
+
 def test_compute_users_return_list():
     """Test the compute_users method."""
     client = plane.Client()
     result = client.compute_users(json_users_data)
-    assert "_embedded" not in result
-    assert "elements" not in result
+    assert "results" not in result
     assert result == json_users_data
     assert isinstance(result, list)
 
