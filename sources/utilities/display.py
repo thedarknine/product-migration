@@ -20,15 +20,20 @@ grey_style = Style(color="bright_black")
 
 
 # MANAGE DISPLAY LIST ------------------------------------------------------------------------------
-def items_list(listing: list) -> None:
+def items_list(listing: list, count: bool = True) -> None:
     """Display items of a list.
 
     Args:
         listing (list): List of items
+        count (bool, optional): Display total number of items. Defaults to True.
     """
     if listing and isinstance(listing, list):
         for item in listing:
             console.print("• " + item, style=grey_style)
+        if count:
+            console.print("Total : " + str(len(listing)), style=grey_style)
+    else:
+        console.print("Empty list", style=grey_style)
 
 
 # MANAGE DISPLAY MESSAGE ---------------------------------------------------------------------------
@@ -48,7 +53,7 @@ def info(message: str) -> None:
         message (str): Info message
     """
     if not message == "":
-        console.print(message + "\n")
+        console.print("\n" + message + "\n")
 
 
 def title(message: str) -> None:

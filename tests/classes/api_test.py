@@ -180,3 +180,37 @@ def test_get_all_no_endpoint_returns_empty_list():
     client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
     response = client.get_all(None)
     assert response is None
+
+
+def test_post(httpx_mock):
+    """Test the post method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+    """
+    client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
+    httpx_mock.add_response(
+        method="POST",
+        url=client.get_endpoint(),
+        match_headers=client.headers,
+        status_code=200,
+        json=[],
+    )
+    result = client.post(client.get_endpoint(), payload={})
+    assert result == []
+
+
+def test_post_error(httpx_mock, caplog):
+    """Test the post method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+        caplog: pytest fixture to capture logs
+    """
+    client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
+    httpx_mock.add_response(401, json={"error": "Unauthorized"})
+    assert client.post(client.get_endpoint(), payload={}) is None
+    error_message = (
+        "Client error '401 Unauthorized' for url 'https://api.example.com/path'"
+    )
+    assert error_message in caplog.records[0].message

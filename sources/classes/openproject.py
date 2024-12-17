@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from sources.models.openproject import (
     Project as OPProject,
     User as OPUser,
+    State as OPState,
+    Type as OPType,
     Task as OPTask,
 )
 from sources.classes import api as Api
@@ -107,6 +109,53 @@ class Client(Api.Client):
             user
             for user in users_list["_embedded"]["elements"]
             if user["email"] not in exclude_users
+        ]
+
+    def get_all_statuses(self) -> list:
+        """Get all states from OpenProject.
+
+        Args:
+            state (str): The state.
+
+        Returns:
+            list
+                A list of states.
+        """
+        states_result = super().get_all(os.getenv("OPENPROJECT_PATH_STATES"))
+        return [
+            OPState.model_validate(state)
+            for state in states_result["_embedded"]["elements"]
+        ]
+
+    def get_all_types(self) -> list:
+        """Get all issue types from OpenProject.
+
+        Returns:
+            list
+                A list of issue types.
+        """
+        types_result = super().get_all(os.getenv("OPENPROJECT_PATH_TYPES"))
+        return [
+            OPType.model_validate(type)
+            for type in types_result["_embedded"]["elements"]
+        ]
+
+    def get_all_types_by_project(self, project_id: str) -> list:
+        """Get all issue types from OpenProject.
+
+        Args:
+            project_id (str): The project id.
+
+        Returns:
+            list
+                A list of issue types.
+        """
+        types_result = super().get_all(
+            os.getenv("OPENPROJECT_PATH_TYPES"), "{PROJECT_ID}", project_id
+        )
+        return [
+            OPType.model_validate(type)
+            for type in types_result["_embedded"]["elements"]
         ]
 
     def get_all_tasks_by_project(self, project_id: str) -> list:

@@ -3,7 +3,7 @@
 from datetime import datetime, timedelta
 import pytest
 from pydantic_core import ValidationError
-from sources.models.openproject import Project, User, Task
+from sources.models.openproject import Project, User, State, Type, Task
 
 
 past_datetime = datetime.now() - timedelta(days=1)
@@ -50,6 +50,20 @@ def test_project_empty_value():
             updatedAt=past_datetime,
         )
     assert exc_info.value.errors()[0]["msg"] == "Field required"
+
+
+def test_project_hash():
+    """Test the project model."""
+    project = Project(
+        id=1,
+        name="test",
+        identifier="test",
+        createdAt=past_datetime,
+        updatedAt=past_datetime,
+    )
+    assert isinstance(hash(project), int)
+    assert hash(project) == hash(1)
+    assert hash(project) != hash(2)
 
 
 def test_user_valid_data():
@@ -110,6 +124,38 @@ def test_user_hash():
     assert isinstance(hash(user), int)
     assert hash(user) == hash(1)
     assert hash(user) != hash(2)
+
+
+def test_state_valid_data():
+    """Test the state model."""
+    state = State(id=1, name="test")
+    assert isinstance(state, State)
+    assert state.id == 1
+    assert state.name == "test"
+
+
+def test_state_hash():
+    """Test the state model."""
+    state = State(id=1, name="test")
+    assert isinstance(hash(state), int)
+    assert hash(state) == hash(1)
+    assert hash(state) != hash(2)
+
+
+def test_type_valid_data():
+    """Test the type model."""
+    optype = Type(id=1, name="test")
+    assert isinstance(optype, Type)
+    assert optype.id == 1
+    assert optype.name == "test"
+
+
+def test_type_hash():
+    """Test the type model."""
+    optype = Type(id=1, name="test")
+    assert isinstance(hash(optype), int)
+    assert hash(optype) == hash(1)
+    assert hash(optype) != hash(2)
 
 
 def test_task_valid_data():

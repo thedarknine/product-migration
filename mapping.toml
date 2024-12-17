@@ -2,6 +2,8 @@
 exclude_projects = [
     "Leviia",
     "Administration Système",
+    # "AdminSys Run",
+    # "AdminSys Projets",
     "Développement",
     "Certification ISO 27001 & HDS"
 ]
@@ -13,4 +15,14 @@ exclude_users = [
 [plane]
 exclude_users = [
     "admin-sys@leviia.com"
+]
+include_states = [
+    "Backlog",
+    "Todo",
+    "In Progress",
+    "Done",
+    "Unscoped",
+    "Cancelled",
+    "In Review",
+    "Duplicated"
 ]

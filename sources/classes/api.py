@@ -101,15 +101,49 @@ class Client:
         logs.get_logger().info(
             "Attempting to get from %s with params: %s", endpoint, params
         )
-        if replace and value:
-            self.set_endpoint(
-                str.replace(
-                    endpoint,
-                    replace,
-                    value,
-                )
-            )
-        else:
-            self.set_endpoint(endpoint)
+        self.set_endpoint(
+            str.replace(endpoint, replace, value) if replace and value else endpoint
+        )
 
         return self.get(params)
+
+    def post(
+        self,
+        endpoint: str,
+        replace: str = None,
+        value: str = None,
+        payload: dict = None,
+    ) -> dict:
+        """Post method for API calls.
+
+        Args:
+            endpoint (str): The endpoint to retrieve the list from.
+            replace (str, optional): The string to replace in the endpoint. Defaults to None.
+            value (str, optional): The value to replace in the endpoint. Defaults to None.
+            payload (dict, optional): Payload to include in the request. Defaults to None.
+
+        Returns:
+            dict: JSON response from the API.
+        """
+        logger = logs.get_logger()
+        self.set_endpoint(
+            str.replace(endpoint, replace, value) if replace and value else endpoint
+        )
+
+        try:
+            with httpx.Client() as client:
+                response = client.post(
+                    self.get_endpoint(), headers=self.headers, json=payload
+                )
+                logger.info(
+                    "Attempting to post item to: %s with payload: %s",
+                    response.url,
+                    payload,
+                )
+                response.raise_for_status()
+                return response.json()
+
+        except httpx.HTTPError as e:
+            logger.error("An error occurred: %s", e)
+            print(f"An error occurred: {e}")
+            return None

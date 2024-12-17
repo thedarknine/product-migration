@@ -2,7 +2,6 @@
 
 import os
 import sys
-import pprint
 import toml
 import arrow
 from dotenv import load_dotenv
@@ -39,6 +38,10 @@ exclude_pl_projects = (
     else []
 )
 exclude_pl_users = mapping["plane"]["exclude_users"]
+include_states = mapping["plane"]["include_states"]
+
+openproject_client = OpenProject.Client()
+plane_client = Plane.Client()
 
 
 def sync_projects(openproject_projects: list, plane_projects: list):
@@ -48,22 +51,33 @@ def sync_projects(openproject_projects: list, plane_projects: list):
         openproject_projects (list): A list of projects.
         plane_projects (list): A list of projects.
     """
-    for tmp_project in openproject_projects:
-        exists = False
-        for new_project in plane_projects:
-            if new_project["name"] == tmp_project["name"]:
-                exists = True
-                break
-        if not exists:
-            pprint.pp("Create new one " + tmp_project["name"])
-        else:
-            pprint.pp("Skip " + tmp_project["name"])
+    return [
+        project.name
+        for project in openproject_projects
+        if project.name not in [pl_project.name for pl_project in plane_projects]
+    ]
+
+
+def sync_states(plane_projects: list):
+    """Check if state name exist into new tool.
+
+    Args:
+        plane_projects (list): A list of projects to get states.
+    """
+    for project in plane_projects:
+        display.info("Update states for project " + project.name)
+        states_list = plane_client.get_all_states_by_project(project.id)
+        new_states = []
+        for include_state in include_states:
+            if include_state not in [state.name for state in states_list]:
+                # states_list.remove(state)
+                new_states.append(include_state)
+                plane_client.create_state(project.id, include_state)
+        display.items_list(new_states)
 
 
 if __name__ == "__main__":
     logger.debug("Starting script")
-    openproject_client = OpenProject.Client()
-    plane_client = Plane.Client()
 
     # display.title("OpenProject - Projects")
     # display.items_list(
@@ -78,6 +92,26 @@ if __name__ == "__main__":
     #         for user in openproject_client.get_all_users(exclude_op_users)
     #     ]
     # )
+
+    # display.title("OpenProject - Statuses")
+    # display.items_list(
+    #     [
+    #         str(status.id) + " - " + status.name
+    #         for status in openproject_client.get_all_statuses()
+    #     ]
+    # )
+
+    # display.title("OpenProject - Types")
+    # for project in openproject_client.get_all_projects(exclude_op_projects):
+    #     display.info("Project: " + project.name)
+    #     display.items_list(
+    #         [
+    #             str(issue_type.id) + " - " + issue_type.name
+    #             for issue_type in openproject_client.get_all_types_by_project(
+    #                 str(project.id)
+    #             )
+    #         ]
+    #     )
 
     # display.title("OpenProject - Tasks")
     # tasks_list = []
@@ -113,35 +147,26 @@ if __name__ == "__main__":
     #     )
     # display.items_list([str(user.id) + " - " + user.email for user in users_list])
 
-    display.title("Plane - Tasks")
-    tasks_list = []
-    for project in plane_client.get_all_projects():
-        display.info("Project: " + project.name)
-        tasks_list = list(
-            set(tasks_list + plane_client.get_all_tasks_by_project(project.id))
-        )
-    display.items_list([task.name for task in tasks_list])
+    # display.title("Plane - Tasks")
+    # tasks_list = []
+    # for project in plane_client.get_all_projects():
+    #     display.info("Project: " + project.name)
+    #     tasks_list = list(
+    #         set(tasks_list + plane_client.get_all_tasks_by_project(project.id))
+    #     )
+    # display.items_list([task.name for task in tasks_list])
 
-    # display.items_list([project["name"] for project in op_projects_list])
-    # total_tasks = 0
-    # for project in op_projects_list:
-    #     op_tasks_list = openproject_client.get_tasks_by_projectid(project["id"])
-    #     total_tasks += len(op_tasks_list)
-    #     display.items_list([task["_links"]["project"]["title"] +
-    #                         " - " + str(task["id"]) + " " +
-    #                         task["subject"] for task in op_tasks_list])
-    #     display.info(project["name"] + " -> Total tasks : " + str(len(op_tasks_list)))
-    #     # break
-    # display.info("Total tasks : " + str(total_tasks))
-    # op_projects = openproject_client.get_projects()
-    # display.items_list([prj["name"] for prj in op_projects])
-    # op_users = openproject_client.get_all(os.getenv("OPENPROJECT_PATH_USERS"))
-    # display.items_list([usr["email"] for usr in op_users])
-    # op_tasks = openproject_client.get_tasks()
-    # pprint.pp([task["_links"]["project"]["title"] +
-    # " - " + str(task["id"]) + task["subject"] for task in op_tasks])
+    ## TEST HULY self-hosted ======================================================================
+    # Keep in mind that Huly doesn't support API calls and is based on MongoDB
 
-    # sync_projects(op_projects, pl_projects)
+    # display.title("Projects to create in Plane")
+    # new_projects = sync_projects(
+    #     openproject_client.get_all_projects(exclude_op_projects),
+    #     plane_client.get_all_projects(),
+    # )
+    # display.items_list(new_projects)
+
+    # sync_states(plane_client.get_all_projects())
 
     # End script
     display.end_info(start_date)

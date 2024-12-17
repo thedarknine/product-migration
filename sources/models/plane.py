@@ -11,6 +11,14 @@ class Project(BaseModel):
     created_at: PastDatetime
     updated_at: PastDatetime
 
+    def __hash__(self) -> int:
+        """Hash function.
+
+        Returns:
+            int: Hash value.
+        """
+        return self.id.__hash__()
+
 
 class User(BaseModel):
     """Plane user model to handle user object."""
@@ -19,6 +27,22 @@ class User(BaseModel):
     first_name: str
     last_name: str
     email: EmailStr
+
+    def __hash__(self) -> int:
+        """Hash function.
+
+        Returns:
+            int: Hash value.
+        """
+        return self.id.__hash__()
+
+
+class State(BaseModel):
+    """Plane state model to handle state object."""
+
+    id: str
+    name: str
+    group: str | None = None
 
     def __hash__(self) -> int:
         """Hash function.

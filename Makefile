@@ -22,6 +22,10 @@ cs:
 	poetry run pylint --output-format=colorized main.py sources/models/*.py sources/utilities/*.py sources/classes/*.py tests/models/*.py tests/classes/*.py tests/utilities/*.py
 	poetry run black main.py sources/models/*.py sources/utilities/*.py sources/classes/*.py tests/models/*.py tests/classes/*.py tests/utilities/*.py --diff
 
+## Fix with blacl
+cs-fix:
+	poetry run black main.py sources/models/*.py sources/utilities/*.py sources/classes/*.py tests/models/*.py tests/classes/*.py tests/utilities/*.py
+
 ## Lint docstrings
 cs-doc:
 #	numpydoc lint main.py sources/models/*.py sources/utilities/*.py sources/classes/*.py tests/classes/*.py tests/utilities/*.py
