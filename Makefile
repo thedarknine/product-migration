@@ -5,6 +5,25 @@ SHELL := /bin/bash
 
 ## BUILD ==============================================================
 
+## Docker build
+build:
+	docker compose build
+
+## Docker up
+up:
+	docker compose up -d
+
+## Docker down
+down:
+	docker compose down --remove-orphans
+
+## Docker restart
+restart: down build up
+
+## Docker run python
+shpython:
+	docker compose exec python bash
+
 ## Run the application
 run:
 	poetry run python main.py

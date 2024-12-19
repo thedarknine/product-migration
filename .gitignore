@@ -1,6 +1,7 @@
 .devcontainer/data/
 logs/
 .DS_Store
+.docker/volumes/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

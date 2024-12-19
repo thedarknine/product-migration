@@ -1,0 +1,51 @@
+services:
+  # Run as
+  # docker compose build; docker compose up -d
+  # Check with
+  # docker ps
+  # Then check the logs with
+  # docker logs --tail 50 $service_name
+  # docker-compose images
+  # docker-compose logs --tail 20 $service_name
+  # Connect to container
+  # docker compose exec $service_name bash
+
+  mysql:
+    container_name: migmysql
+    image: mysql:8.0
+    restart: on-failure
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    volumes:
+      - ./.docker/volumes/mysql/logs:/var/log/mysql
+      - ./.docker/volumes/migrationdb:/var/lib/mysql
+      #- ./.docker/mysql/db:/docker-entrypoint-initdb.d
+    #   - ./mysql/conf.d:/etc/mysql/conf.d
+    # env_file:
+    #   - ./mysql/local.env
+    # tty: true
+    networks:
+        - migration-ntwk
+
+  python:
+    depends_on:
+      - mysql
+    container_name: migpython
+    build:
+      context: .docker/
+      dockerfile: py.Dockerfile
+    volumes:
+      - .:/app
+    # env_file:
+    #   - ./app/local.env
+    command: # Keep container running
+      tail -f /dev/null
+ 
+networks:
+  migration-ntwk:
+    driver: bridge

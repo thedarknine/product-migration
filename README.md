@@ -2,6 +2,10 @@
 
 Migrate from OpenProject to Plane using API.
 
+Inspiration for Docker : 
+* <https://github.com/qlawmarq/fastapi-mysql-docker/blob/main/README.md>
+* <https://www.dabbleofdevops.com/blog/setup-a-mysql-python-docker-dev-stack>
+
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/httpx)
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 
