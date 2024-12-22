@@ -10,32 +10,42 @@ services:
   # Connect to container
   # docker compose exec $service_name bash
 
-  mysql:
-    container_name: migmysql
-    image: mysql:8.0
+  postgres:
+    container_name: dbmig
+    image: postgres
     restart: on-failure
     ports:
-      - "3306:3306"
+      - '5432:5432'
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
     volumes:
-      - ./.docker/volumes/mysql/logs:/var/log/mysql
-      - ./.docker/volumes/migrationdb:/var/lib/mysql
-      #- ./.docker/mysql/db:/docker-entrypoint-initdb.d
-    #   - ./mysql/conf.d:/etc/mysql/conf.d
-    # env_file:
-    #   - ./mysql/local.env
-    # tty: true
+      - ./.docker/db:/docker-entrypoint-initdb.d
+      - ./.docker/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    networks:
+        - migration-ntwk
+  
+  admin:
+    depends_on:
+      - postgres
+    restart: always
+    container_name: adminmig
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=${DB_PASSWORD}
+      - PGADMIN_DEFAULT_EMAIL=hello@carolinenoyer.fr
+    ports:
+      - "8888:80"
+    volumes:
+      - ./.docker/volumes/pgadmin-data:/var/lib/pgadmin
     networks:
         - migration-ntwk
 
   python:
     depends_on:
-      - mysql
-    container_name: migpython
+      - postgres
+    container_name: appmig
     build:
       context: .docker/
       dockerfile: py.Dockerfile
@@ -45,6 +55,8 @@ services:
     #   - ./app/local.env
     command: # Keep container running
       tail -f /dev/null
+    networks:
+        - migration-ntwk
  
 networks:
   migration-ntwk:

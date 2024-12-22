@@ -2,6 +2,7 @@
 logs/
 .DS_Store
 .docker/volumes/
+.tmp/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
