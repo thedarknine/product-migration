@@ -182,6 +182,19 @@ def test_get_all_no_endpoint_returns_empty_list():
     assert response is None
 
 
+def test_get_one(httpx_mock):
+    """Test the get_one method.
+
+    Args:
+        httpx_mock: pytest fixture to mock httpx
+    """
+    httpx_mock.add_response(200, json={"_embedded": {"elements": []}})
+    client = api.Client("https://api.example.com", "path", {"X-API-Key": "secret"})
+    response = client.get_one(os.getenv("OPENPROJECT_PATH_PROJECT"), 1)
+    assert isinstance(response, dict)
+    assert len(response) == 1
+
+
 def test_post(httpx_mock):
     """Test the post method.
 

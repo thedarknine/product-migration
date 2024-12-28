@@ -107,6 +107,31 @@ class Client:
 
         return self.get(params)
 
+    def get_one(
+        self, endpoint: str, replace: str = None, value: str = None, params: dict = None
+    ) -> dict:
+        """Retrieve one resource from OpenProject.
+
+        Args:
+            endpoint (str): The endpoint to retrieve the item from.
+            replace (str, optional): The string to replace in the endpoint. Defaults to None.
+            value (str, optional): The value to replace in the endpoint. Defaults to None.
+            params (dict, optional): Query parameters to include in the request. Defaults to None.
+
+        Returns:
+            dict: A resource.
+        """
+        logs.get_logger().info(
+            "Attempting to get from %s with params: %s", endpoint, params
+        )
+        self.set_endpoint(
+            str.replace(endpoint, replace, str(value))
+            if replace and value
+            else endpoint
+        )
+
+        return self.get(params)
+
     def post(
         self,
         endpoint: str,

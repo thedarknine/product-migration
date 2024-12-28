@@ -6,7 +6,7 @@ import toml
 import arrow
 from dotenv import load_dotenv
 from sources.models.mapping import Mapping
-from sources.classes import plane as Plane, openproject as OpenProject
+from sources.classes import plane as Plane, openproject as OpenProject, db as DB
 from sources.utilities import display, logs
 
 # Load env variables
@@ -78,6 +78,13 @@ def sync_states(plane_projects: list):
 
 if __name__ == "__main__":
     logger.debug("Starting script")
+
+    engine = DB.Client().connection()
+    tables_list = DB.Client().debug_tables_list(engine)
+    display.items_list(tables_list)
+    DB.Client().drop_schema(engine)
+
+    DB.Client().close_connection(engine)
 
     # display.title("OpenProject - Projects")
     # display.items_list(
