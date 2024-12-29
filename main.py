@@ -6,6 +6,8 @@ import toml
 import arrow
 from dotenv import load_dotenv
 from sources.models.mapping import Mapping
+from sources.models.project import Project
+from sources.models.user import User
 from sources.classes import plane as Plane, openproject as OpenProject, db as DB
 from sources.utilities import display, logs
 
@@ -80,9 +82,31 @@ if __name__ == "__main__":
     logger.debug("Starting script")
 
     engine = DB.Client().connection()
+    DB.Client().drop_schema(engine)
+    DB.Client().create_schema(engine)
+
     tables_list = DB.Client().debug_tables_list(engine)
     display.items_list(tables_list)
-    DB.Client().drop_schema(engine)
+
+    # Get projects to database
+    projects_list = openproject_client.get_all_projects(exclude_op_projects)
+    insert_projects = []
+    for raw_project in projects_list:
+        new_project = Project().from_raw(raw_project)
+        insert_projects.append(new_project.to_dict())
+    DB.Client().write_data(engine, "projects", insert_projects)
+
+    # Get users to database
+    users_list = openproject_client.get_all_users(exclude_op_users)
+    insert_users = []
+    for raw_user in users_list:
+        new_user = User().from_raw(raw_user)
+        insert_users.append(new_user.to_dict())
+    DB.Client().write_data(engine, "users", insert_users)
+
+    # Query DB
+    # projects_list = DB.Client().read_data(engine, "projects")
+    # print(projects_list)
 
     DB.Client().close_connection(engine)
 

@@ -3,10 +3,12 @@
 import os
 import sys
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine, insert, MetaData, Table
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.exc import OperationalError
 from sources.utilities import display, logs
+from sources.models.project import Project
+from sources.models.user import User
 
 load_dotenv()
 Base = declarative_base()
@@ -70,11 +72,24 @@ class Client:
         self.unset_engine()
         logs.get_logger().info("Connection to database closed")
 
+    def create_schema(self, engine: object) -> None:
+        """Create database schema."""
+        Project.metadata.create_all(engine)
+        User.metadata.create_all(engine)
+
     def drop_schema(self, engine: object):
         """Drop database schema."""
         metadata = MetaData()
         metadata.reflect(bind=engine)
         metadata.drop_all(bind=engine)
+
+    def write_data(self, engine: object, table_name: str, data: object):
+        """Write data into database."""
+        tbl = Table(table_name, MetaData(), autoload_with=engine)
+        with engine.connect() as connection:
+            insert_request = insert(tbl).values(data)
+            connection.execute(insert_request)
+            connection.commit()
 
     def debug_tables_list(self, engine: object):
         """List all tables in the database."""

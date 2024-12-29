@@ -71,14 +71,22 @@ def test_user_valid_data():
     user = User(
         id=1,
         name="test",
+        firstName="FirstName",
+        lastName="LastName",
+        login="first.last",
         email="test@mail.com",
+        admin=True,
         createdAt=past_datetime,
         updatedAt=past_datetime,
     )
     assert isinstance(user, User)
     assert user.id == 1
     assert user.name == "test"
+    assert user.firstName == "FirstName"
+    assert user.lastName == "LastName"
+    assert user.login == "first.last"
     assert user.email == "test@mail.com"
+    assert user.admin
     assert user.createdAt == past_datetime
     assert user.updatedAt == past_datetime
 
@@ -89,7 +97,11 @@ def test_user_invalid_dates():
         User(
             id=1,
             name="test",
+            firstName="FirstName",
+            lastName="LastName",
+            login="first.last",
             email="test@mail.com",
+            admin=True,
             createdAt=future_datetime,
             updatedAt=future_datetime,
         )
@@ -102,7 +114,11 @@ def test_user_invalid_email():
         User(
             id=1,
             name="test",
+            firstName="FirstName",
+            lastName="LastName",
+            login="first.last",
             email="test",
+            admin=True,
             createdAt=past_datetime,
             updatedAt=past_datetime,
         )
@@ -117,7 +133,11 @@ def test_user_hash():
     user = User(
         id=1,
         name="test",
+        firstName="FirstName",
+        lastName="LastName",
+        login="first.last",
         email="test@mail.com",
+        admin=True,
         createdAt=past_datetime,
         updatedAt=past_datetime,
     )

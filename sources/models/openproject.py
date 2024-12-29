@@ -26,7 +26,11 @@ class User(BaseModel):
 
     id: int
     name: str
+    firstName: str
+    lastName: str
+    login: str
     email: EmailStr
+    admin: bool
     createdAt: PastDatetime
     updatedAt: PastDatetime
 
