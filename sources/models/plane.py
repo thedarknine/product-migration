@@ -37,8 +37,8 @@ class User(BaseModel):
         return self.id.__hash__()
 
 
-class State(BaseModel):
-    """Plane state model to handle state object."""
+class Status(BaseModel):
+    """Plane status model to handle status object."""
 
     id: str
     name: str

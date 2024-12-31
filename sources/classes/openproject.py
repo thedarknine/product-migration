@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from sources.models.openproject import (
     Project as OPProject,
     User as OPUser,
-    State as OPState,
+    Status as OPStatus,
     Type as OPType,
     Task as OPTask,
 )
@@ -112,19 +112,16 @@ class Client(Api.Client):
         ]
 
     def get_all_statuses(self) -> list:
-        """Get all states from OpenProject.
-
-        Args:
-            state (str): The state.
+        """Get all statuses from OpenProject.
 
         Returns:
             list
-                A list of states.
+                A list of statuses.
         """
-        states_result = super().get_all(os.getenv("OPENPROJECT_PATH_STATES"))
+        status_result = super().get_all(os.getenv("OPENPROJECT_PATH_STATUS"))
         return [
-            OPState.model_validate(state)
-            for state in states_result["_embedded"]["elements"]
+            OPStatus.model_validate(status)
+            for status in status_result["_embedded"]["elements"]
         ]
 
     def get_all_types(self) -> list:

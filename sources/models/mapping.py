@@ -15,6 +15,7 @@ class Plane(BaseModel):
 
     exclude_projects: list | None = None
     exclude_users: list | None = None
+    include_statuses: list | None = None
 
 
 class Mapping(BaseModel):

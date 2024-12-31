@@ -3,7 +3,7 @@
 from datetime import datetime, timedelta
 import pytest
 from pydantic_core import ValidationError
-from sources.models.plane import Project, User, State, Task
+from sources.models.plane import Project, User, Status, Task
 
 
 past_datetime = datetime.now() - timedelta(days=1)
@@ -114,20 +114,20 @@ def test_user_hash():
     assert hash(user) != hash("62492acb-203d-4bdb-82e3-85fbd5cf2cc8")
 
 
-def test_state_valid_data():
-    """Test the state model."""
-    state = State(id="62492acb-203d-4bdb-82e3-85fbd5cf2cc9", name="test")
-    assert isinstance(state, State)
-    assert state.id == "62492acb-203d-4bdb-82e3-85fbd5cf2cc9"
-    assert state.name == "test"
+def test_status_valid_data():
+    """Test the status model."""
+    status = Status(id="62492acb-203d-4bdb-82e3-85fbd5cf2cc9", name="test")
+    assert isinstance(status, Status)
+    assert status.id == "62492acb-203d-4bdb-82e3-85fbd5cf2cc9"
+    assert status.name == "test"
 
 
-def test_state_hash():
-    """Test the state model."""
-    state = State(id="62492acb-203d-4bdb-82e3-85fbd5cf2cc9", name="test")
-    assert isinstance(hash(state), int)
-    assert hash(state) == hash("62492acb-203d-4bdb-82e3-85fbd5cf2cc9")
-    assert hash(state) != hash("62492acb-203d-4bdb-82e3-85fbd5cf2cc8")
+def test_status_hash():
+    """Test the status model."""
+    status = Status(id="62492acb-203d-4bdb-82e3-85fbd5cf2cc9", name="test")
+    assert isinstance(hash(status), int)
+    assert hash(status) == hash("62492acb-203d-4bdb-82e3-85fbd5cf2cc9")
+    assert hash(status) != hash("62492acb-203d-4bdb-82e3-85fbd5cf2cc8")
 
 
 def test_task_valid_data():

@@ -40,7 +40,7 @@ exclude_pl_projects = (
     else []
 )
 exclude_pl_users = mapping["plane"]["exclude_users"]
-include_states = mapping["plane"]["include_states"]
+include_statuses = mapping["plane"]["include_statuses"]
 
 openproject_client = OpenProject.Client()
 plane_client = Plane.Client()
@@ -60,22 +60,21 @@ def sync_projects(openproject_projects: list, plane_projects: list):
     ]
 
 
-def sync_states(plane_projects: list):
-    """Check if state name exist into new tool.
+def sync_statuses(plane_projects: list):
+    """Check if status name exist into new tool.
 
     Args:
-        plane_projects (list): A list of projects to get states.
+        plane_projects (list): A list of projects to get statuses.
     """
     for project in plane_projects:
-        display.info("Update states for project " + project.name)
-        states_list = plane_client.get_all_states_by_project(project.id)
-        new_states = []
-        for include_state in include_states:
-            if include_state not in [state.name for state in states_list]:
-                # states_list.remove(state)
-                new_states.append(include_state)
-                plane_client.create_state(project.id, include_state)
-        display.items_list(new_states)
+        display.info("Update statuses for project " + project.name)
+        statuses_list = plane_client.get_all_statuses_by_project(project.id)
+        new_statuses = []
+        for include_status in include_statuses:
+            if include_status not in [status.name for status in statuses_list]:
+                new_statuses.append(include_status)
+                plane_client.create_status(project.id, include_status)
+        display.items_list(new_statuses)
 
 
 if __name__ == "__main__":
@@ -197,7 +196,7 @@ if __name__ == "__main__":
     # )
     # display.items_list(new_projects)
 
-    # sync_states(plane_client.get_all_projects())
+    # sync_statuses(plane_client.get_all_projects())
 
     # End script
     display.end_info(start_date)

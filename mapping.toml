@@ -16,7 +16,7 @@ exclude_users = [
 exclude_users = [
     "admin-sys@leviia.com"
 ]
-include_states = [
+include_statuses = [
     "Backlog",
     "Todo",
     "In Progress",

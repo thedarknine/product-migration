@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from sources.models.plane import (
     Project as PlProject,
     User as PlUser,
-    State as PlState,
+    Status as PlStatus,
     Task as PlTask,
 )
 from sources.classes import api as Api
@@ -144,36 +144,37 @@ class Client(Api.Client):
             task for task in tasks_list["results"] if task["name"] not in exclude_tasks
         ]
 
-    def get_all_states_by_project(self, project_id: str) -> list:
-        """Get all states from Plane.
+    def get_all_statuses_by_project(self, project_id: str) -> list:
+        """Get all statuses from Plane.
 
         Args:
             project_id (str): The project id.
 
         Returns:
             list
-                A list of states.
+                A list of statuses.
         """
-        states_result = super().get_all(
-            os.getenv("PLANE_PATH_STATES"), "{PROJECT_ID}", project_id
+        statuses_result = super().get_all(
+            os.getenv("PLANE_PATH_STATUS"), "{PROJECT_ID}", project_id
         )
-        # states_result = self.compute_users(users_result, exclude_users)
-        return [PlState.model_validate(state) for state in states_result["results"]]
+        return [
+            PlStatus.model_validate(status) for status in statuses_result["results"]
+        ]
 
-    def create_state(self, project_id: str, state: str) -> dict:
-        """Create a state in Plane.
+    def create_status(self, project_id: str, status: str) -> dict:
+        """Create a status in Plane.
 
         Args:
             project_id (str): The project id.
-            state (str): The state.
+            status (str): The status.
 
         Returns:
             dict
-                A state.
+                A status.
         """
         return super().post(
-            os.getenv("PLANE_PATH_STATES"),
+            os.getenv("PLANE_PATH_STATUS"),
             "{PROJECT_ID}",
             project_id,
-            payload={"name": state, "color": "#00C599"},
+            payload={"name": status, "color": "#00C599"},
         )

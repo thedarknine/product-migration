@@ -43,8 +43,8 @@ class User(BaseModel):
         return self.id.__hash__()
 
 
-class State(BaseModel):
-    """OpenProject state model to handle state object."""
+class Status(BaseModel):
+    """OpenProject status model to handle status object."""
 
     id: int
     name: str

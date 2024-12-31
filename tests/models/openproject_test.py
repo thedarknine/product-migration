@@ -3,7 +3,7 @@
 from datetime import datetime, timedelta
 import pytest
 from pydantic_core import ValidationError
-from sources.models.openproject import Project, User, State, Type, Task
+from sources.models.openproject import Project, User, Status, Type, Task
 
 
 past_datetime = datetime.now() - timedelta(days=1)
@@ -146,20 +146,20 @@ def test_user_hash():
     assert hash(user) != hash(2)
 
 
-def test_state_valid_data():
-    """Test the state model."""
-    state = State(id=1, name="test")
-    assert isinstance(state, State)
-    assert state.id == 1
-    assert state.name == "test"
+def test_status_valid_data():
+    """Test the status model."""
+    status = Status(id=1, name="test")
+    assert isinstance(status, Status)
+    assert status.id == 1
+    assert status.name == "test"
 
 
-def test_state_hash():
-    """Test the state model."""
-    state = State(id=1, name="test")
-    assert isinstance(hash(state), int)
-    assert hash(state) == hash(1)
-    assert hash(state) != hash(2)
+def test_status_hash():
+    """Test the status model."""
+    status = Status(id=1, name="test")
+    assert isinstance(hash(status), int)
+    assert hash(status) == hash(1)
+    assert hash(status) != hash(2)
 
 
 def test_type_valid_data():
